@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnosAI · 企业知识绿洲 — 产品设计规范 v2.1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0F766E;
+      --primary-light: #14B8A6;
+      --primary-dark: #0D5D54;
+      --accent: #F97316;
+      --bg-warm: #FAFAF9;
+      --bg-light: #F5F5F4;
+      --surface: #FFFFFF;
+      --text-dark: #1C1917;
+      --text-muted: #78716C;
+      --text-light: #A8A29E;
+      --border: #E7E5E4;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04);
+      --shadow-md: 0 4px 12px rgba(28,25,23,0.08), 0 2px 4px rgba(28,25,23,0.04);
+      --shadow-lg: 0 12px 32px rgba(28,25,23,0.1), 0 4px 8px rgba(28,25,23,0.06);
+      --transition: 0.2s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 18px; font-weight: 700; color: var(--primary);
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+    .nav-link:hover { color: var(--primary); text-decoration: none; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 20px; border-radius: var(--radius-md);
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      border: none; transition: all var(--transition); white-space: nowrap;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-light); }
+    .btn-ghost { background: transparent; color: var(--text-muted); }
+    .btn-ghost:hover { color: var(--primary); background: rgba(15,118,110,0.05); }
+
+    /* TOC */
+    .toc {
+      position: fixed; top: 80px; left: 32px; width: 240px;
+      background: var(--surface); border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-md);
+      max-height: calc(100vh - 120px); overflow-y: auto;
+    }
+    .toc-title { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc-item { display: block; font-size: 13px; color: var(--text-muted); padding: 6px 0; border-left: 2px solid transparent; padding-left: 12px; transition: all var(--transition); }
+    .toc-item:hover { color: var(--primary); border-left-color: var(--primary); text-decoration: none; }
+    .toc-item.active { color: var(--primary); border-left-color: var(--primary); font-weight: 600; }
+    .toc-section { font-size: 12px; font-weight: 700; color: var(--text-light); margin-top: 16px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Main */
+    .main { max-width: 900px; margin: 0 auto; padding: 120px 48px 80px; }
+    .doc-header { text-align: center; margin-bottom: 64px; padding-bottom: 48px; border-bottom: 2px solid var(--border); }
+    .doc-badge { display: inline-block; background: rgba(15,118,110,0.1); color: var(--primary); padding: 6px 16px; border-radius: var(--radius-full); font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .doc-title { font-size: 36px; font-weight: 900; color: var(--text-dark); margin-bottom: 12px; }
+    .doc-subtitle { font-size: 16px; color: var(--text-muted); }
+    .doc-meta { display: flex; justify-content: center; gap: 32px; margin-top: 24px; }
+    .doc-meta-item { font-size: 13px; color: var(--text-light); }
+    .doc-meta-item strong { color: var(--text-muted); }
+
+    /* Sections */
+    .doc-section { margin-bottom: 64px; scroll-margin-top: 100px; }
+    .section-number { font-size: 12px; font-weight: 700; color: var(--primary-light); font-family: monospace; margin-bottom: 8px; }
+    .section-title { font-size: 24px; font-weight: 700; color: var(--text-dark); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .subsection-title { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; margin-top: 32px; }
+
+    /* Cards & Info */
+    .info-box { background: var(--surface); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 24px; border-left: 4px solid var(--primary); }
+    .info-box.warning { border-left-color: var(--warning); background: rgba(245,158,11,0.05); }
+    .info-box.success { border-left-color: var(--success); background: rgba(16,185,129,0.05); }
+    .info-box-title { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+    .info-box p, .info-box li { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .info-box ul { margin-top: 8px; padding-left: 20px; }
+    .info-box li { margin-bottom: 4px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--bg-light); font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--border); color: var(--text-dark); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+    tr:hover td { background: var(--bg-warm); }
+
+    /* Code */
+    pre {
+      background: #1C1917; color: #E7E5E4;
+      padding: 24px; border-radius: var(--radius-lg);
+      font-size: 13px; line-height: 1.6;
+      overflow-x: auto; margin-bottom: 24px;
+    }
+    code { font-family: 'Consolas', monospace; font-size: 13px; }
+    .inline-code { background: var(--bg-light); padding: 2px 8px; border-radius: 4px; color: var(--primary); }
+
+    /* Diagram boxes */
+    .diagram { background: #1C1917; color: #E7E5E4; padding: 24px; border-radius: var(--radius-lg); font-size: 13px; line-height: 1.8; margin-bottom: 24px; overflow-x: auto; }
+    .diagram .label { color: #5EEAD4; }
+    .diagram .dim { color: rgba(255,255,255,0.4); }
+    .diagram .arrow { color: #14B8A6; }
+
+    /* Tags */
+    .tag { display: inline-block; background: rgba(15,118,110,0.1); color: var(--primary); padding: 4px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 8px; }
+    .tag.accent { background: rgba(249,115,22,0.1); color: var(--accent); }
+    .tag.muted { background: var(--bg-light); color: var(--text-muted); }
+
+    /* Color swatch */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .color-swatch { text-align: center; }
+    .color-chip { width: 100%; height: 60px; border-radius: var(--radius-md); margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+    .color-name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+    .color-hex { font-size: 12px; color: var(--text-light); font-family: monospace; }
+
+    /* Checklist */
+    .checklist { list-style: none; }
+    .checklist li { padding: 8px 0; border-bottom: 1px solid var(--border-light, #f0f0ef); font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
+    .checklist li::before { content: '□'; font-size: 16px; color: var(--text-light); }
+    .checklist li.done::before { content: '☑'; color: var(--success); }
+
+    /* Version table */
+    .version-table td:first-child { font-weight: 600; color: var(--primary); width: 60px; }
+    .version-table td:last-child { color: var(--text-muted); font-size: 13px; }
+
+    /* Back to top */
+    .back-to-top { position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; box-shadow: var(--shadow-md); transition: all var(--transition); }
+    .back-to-top:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    @media (max-width: 1200px) { .toc { display: none; } }
+    @media (max-width: 768px) {
+      .nav { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .main { padding: 100px 24px 60px; }
+      .doc-title { font-size: 28px; }
+      .doc-meta { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 3232" fill="none">
+      <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="16" cy="16" r="3" fill="currentColor"/>
+    </svg>
+    KnosAI · 企业知识绿洲
+  </a>
+  <div class="nav-links">
+    <a href="#section-1" class="nav-link">项目概述</a>
+    <a href="#section-2" class="nav-link">产品架构</a>
+    <a href="#section-3" class="nav-link">基础库设计</a>
+    <a href="#section-4" class="nav-link">双路径设计</a>
+    <a href="#section-6" class="nav-link">设计规范</a>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html" class="btn btn-ghost">← 落地页</a>
+    <a href="#" class="btn btn-primary">免费开始</a>
+  </div>
+</nav>
+
+<!-- Table of Contents -->
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <a href="#section-1" class="toc-item">§1 项目概述</a>
+  <a href="#section-2" class="toc-item">§2 核心产品架构</a>
+  <a href="#section-3" class="toc-item">§3 行业基础库设计</a>
+  <a href="#section-4" class="toc-item">§4 路径 A · 引导式问答</a>
+  <a href="#section-5" class="toc-item">§5 路径 B · 文档上传</a>
+  <a href="#section-6" class="toc-item">§6 设计方向</a>
+  <a href="#section-7" class="toc-item">§7 Hero 设计</a>
+  <a href="#section-8" class="toc-item">§8 页面章节</a>
+  <a href="#section-9" class="toc-item">§9 组件状态</a>
+  <a href="#section-10" class="toc-item">§10 响应式断点</a>
+  <a href="#section-11" class="toc-item">§11 动效交互</a>
+  <a href="#section-12" class="toc-item">§12 技术实现</a>
+  <a href="#section-13" class="toc-item">§13 内容文案</a>
+  <a href="#section-14" class="toc-item">§14 文件结构</a>
+  <a href="#section-15" class="toc-item">§15 验证清单</a>
+  <a href="#section-16" class="toc-item">§16 版本记录</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+<div class="doc-header">
+  <div class="doc-badge">v2.2 · 2026-06-10</div>
+  <h1 class="doc-title">KnosAI · 企业知识绿洲</h1>
+  <p class="doc-subtitle">Landing Page Design Specification · 产品设计规范文档 · v2.2</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item"><strong>品牌</strong> KnosAI（域名 knosAI.ltd）</span>
+    <span class="doc-meta-item"><strong>首期行业</strong> 环保-污水处理站运维</span>
+    <span class="doc-meta-item"><strong>扩展方式</strong> 行业包驱动</span>
+  </div>
+</div>
+
+<!-- §1 -->
+<div class="doc-section" id="section-1">
+  <div class="section-number">§1</div>
+  <h2 class="section-title">项目概述</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">品牌信息</div>
+    <ul>
+      <li><strong>品牌名（产品名）：</strong> <span class="tag">KnosAI</span></li>
+      <li><strong>中文产品名：</strong> 企业知识绿洲</li>
+      <li><strong>域名 / 公司主体：</strong> knosAI.ltd</li>
+      <li><strong>项目类型：</strong> 行业知识库平台 Landing Page</li>
+      <li><strong>行业定位：</strong> 先做环保行业（污水处理站运维托管），后续按行业扩展</li>
+      <li><strong>目标用户：</strong> 环保、医疗、制造、餐饮等行业的中小型企业（B 端）</li>
+    </ul>
+  </div>
+
+  <h3 class="subsection-title">核心价值主张</h3>
+  <div class="info-box success">
+    <p><strong>不是问答工具，是企业专属知识库平台。</strong></p>
+    <p>通过引导式问答 + 文档上传，自动构建贴合企业自身的完整知识库，让员工和客户随时可问、可查、可用。</p>
+  </div>
+
+  <h3 class="subsection-title">行业扩展策略</h3>
+  <div class="diagram">
+<span class="dim">当前（v1）：</span>环保行业 - 污水处理站运维
+<span class="arrow">→</span>
+<span class="dim">未来扩展：</span>环保 → 制造 → 医疗 → 餐饮 ...
+            <span class="arrow">↓</span>
+       <span class="label">每个行业独立的基础知识库 + 独立引导模板 + 独立文档适配器</span>
+
+系统设计时<strong>预留行业扩展接口</strong>，新增行业不改主代码，只需新增行业包。
+  </div>
+</div>
+
+<!-- §2 -->
+<div class="doc-section" id="section-2">
+  <div class="section-number">§2</div>
+  <h2 class="section-title">核心产品架构</h2>
+
+  <h3 class="subsection-title">2.1 三层知识结构</h3>
+  <div class="diagram">
+┌────────────────────────────────────────────────────┐
+<span class="label">│ 企业知识库（用户最终看到的） │</span>
+│                                                     │
+│  <span class="dim">= 行业基础知识库（隐性）</span> │
+│   <span class="dim">+ 引导式问答获取的知识</span>                        │
+│   <span class="dim">+ 用户上传的知识库文档解析后的知识</span>         │
+│                                                     │
+│   <span class="label">用户视角：这就是"我公司的知识库"</span> │
+└────────────────────────────────────────────────────┘
+           <span class="arrow">↑</span>              <span class="arrow">↑</span>              <span class="arrow">↑</span>
+       <span class="dim">隐性基础库</span>   <span class="dim">引导式问答</span>    <span class="dim">文档上传</span>
+       <span class="dim">（平台预置）</span>   <span class="dim">（挖隐性）</span>      <span class="dim">（整显性）</span>
+  </div>
+
+  <div class="info-box success">
+    <div class="info-box-title">关键原则</div>
+    <ul>
+      <li><strong>行业基础知识库是隐性的</strong>——用户感知不到"这是平台预置的"，他只看到"我的企业知识库"</li>
+      <li>用户体验上，<strong>企业知识库 = 一个完整、统一的知识库</strong>，不区分来源</li>
+      <li>三个数据源在底层有来源标记（用于后续分析、审计、去重），但呈现层透明</li>
+    </ul>
+  </div>
+
+  <h3 class="subsection-title">2.2 三条知识获取路径</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>路径</th><th>适用场景</th><th>用户操作</th><th>数据流向</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag">路径 A</span>引导式问答</td><td>没文档、有经验的老师傅</td><td>系统提问 20-30 个 → 用户回答</td><td>入企业库</td></tr>
+        <tr><td><span class="tag">路径 B</span> 文档上传</td><td>有现成文档的企业</td><td>上传 PDF/Word/Excel/MD/TXT</td><td>解析入企业库</td></tr>
+        <tr><td><span class="tag">路径 C</span> 行业基础库（隐性）</td><td>所有用户首次进入</td><td>无需操作，自动初始化</td><td>隐性注入</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subsection-title">2.3 用户视角的"五步上手"（v2.2 多站点版）</h3>
+  <div class="diagram">
+<span class="arrow">①</span> <span class="label">选择行业</span>（环保-污水处理站运维）
+        <span class="arrow">↓</span>
+<span class="arrow">②</span> <span class="label">填写公司信息</span> + 确认托管站点数量
+        <span class="arrow">↓</span>
+<span class="arrow">③</span> <span class="label">逐站引导问答</span>（每个站点独立获取，达成目标即结束）
+  <span class="dim">└─ 目标导向，不限题数</span>
+        <span class="arrow">↓</span>
+<span class="arrow">④</span> <span class="label">上传文档</span>（可选，可按站点分类上传）
+        <span class="arrow">↓</span>
+<span class="arrow">⑤</span> <span class="label">企业知识库可用</span>
+  <span class="dim">├─ 公司层：通用信息 + 站点清单</span>
+   <span class="dim">├─ 站点层：每个站点独立知识模块</span>
+   <span class="dim">└─ AI 问答：支持按站点检索</span>
+  </div>
+</div>
+
+<!-- §3 -->
+<div class="doc-section" id="section-3">
+  <div class="section-number">§3</div>
+  <h2 class="section-title">行业基础知识库设计（隐性层）</h2>
+
+  <h3 class="subsection-title">3.1 为什么需要"行业基础库"</h3>
+  <p style="color:var(--text-muted);margin-bottom:16px;">环保行业污水处理站的标准工艺、法规、设备是通用的，如果让每家企业都从零录入：重复劳动 / 信息不专业 / 上手门槛高。所以平台预置行业基础知识库，作为<strong>隐性底座</strong>。</p>
+
+  <h3 class="subsection-title">3.2 行业基础库内容结构（环保-污水处理站运维 示例）</h3>
+  <div class="diagram">
+<span class="label">行业基础库（隐性注入）:</span>
+  <span class="dim">法规标准:</span>
+   <span class="dim">- 医疗机构水污染物排放标准 GB18466-2005</span>
+    <span class="dim">- 城镇污水处理厂污染物排放标准 GB18918-2002</span>
+    <span class="dim">- 污水综合排放标准 GB8978-1996</span>
+  <span class="dim">工艺流程:</span>
+    <span class="dim">- 预处理 → 一级处理 → 二级处理 → 深度处理 → 消毒</span>
+    <span class="dim">- 常见工艺：A²O、SBR、MBR、MBBR</span>
+  <span class="dim">通用设备:</span>
+    <span class="dim">- 格栅、潜水泵、鼓风机、曝气头、污泥泵、加药装置</span>
+  <span class="dim">常见异常:</span>
+    <span class="dim">- 泡沫、污泥膨胀、出水超标、设备故障</span>
+  <span class="dim">运维要点:</span>
+    <span class="dim">- 巡检要点、药剂投加、污泥处理、应急预案</span>
+  </div>
+
+  <h3 class="subsection-title">3.3 行业扩展接口设计</h3>
+  <div class="diagram">
+<span class="label">industries/</span>
+├── <span class="label">env-water-station/</span>         <span class="dim"># 环保-污水处理站（首期）</span>
+│   ├──<span class="label">base-knowledge.yaml</span>    <span class="dim">行业基础知识库</span>
+│   ├── <span class="label">qa-template.yaml</span>       <span class="dim">引导问答模板（20-30 题）</span>
+│   ├── <span class="label">doc-parser-rules.yaml</span>  <span class="dim">文档解析规则</span>
+│   └── <span class="label">vocabulary.yaml</span>        <span class="dim">行业术语表</span>
+├── <span class="dim">env-waste-gas/</span>             <span class="dim"># 环保-废气处理（未来）</span>
+├── <span class="dim">manufacturing/</span>             <span class="dim"># 制造业（未来）</span>
+└── <span class="dim">...</span>
+
+<span class="label">加新行业的成本：</span>新建一个行业包目录，无需改主代码。
+  </div>
+
+  <h3 class="subsection-title">3.4 行业基础库的动态更新机制（v2.1 重要原则）</h3>
+  <div class="info-box warning">
+    <div class="info-box-title">核心原则</div>
+    <p>基础包不是静态的，<strong>企业越多，基础包越完善</strong>。</p>
+  </div>
+  <div class="diagram">
+                   <span class="dim">企业使用过程</span>
+                    ┌──────────┐
+                    │<span class="label">引导问答</span>  │
+                    │ <span class="label">文档上传</span>  │
+                    └─────┬────┘
+                         <span class="arrow">↓</span>
+              ┌──────────────────────┐
+              │ <span class="label">企业知识库（私有）</span>  │
+              └──────────┬───────────┘
+                         │ <span class="dim">脱敏 + 抽象化 + 聚合</span>
+                        <span class="arrow">↓</span>
+              ┌──────────────────────┐
+              │ <span class="label">行业基础库（共享）</span>   │</span> <span class="dim">← 持续进化</span>
+              │ · 新发现的最佳实践  │
+              │ · 新出现的异常类型  │
+              │ · 新法规/新标准     │
+              │ · 高频问答沉淀      │
+              └──────────┬───────────┘
+                         <span class="arrow">↓</span>
+              ┌──────────────────────┐
+              │   <span class="label">所有新企业受益</span>     │
+              └──────────────────────┘
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>数据类型</th><th>来源</th><th>抽象化处理</th><th>入基础库</th></tr></thead>
+      <tbody>
+        <tr><td>引导问答中的老师傅经验</td><td>多家企业</td><td>去标识化、归纳为通用实践</td><td>行业最佳实践库</td></tr>
+        <tr><td>文档中的企业专属 SOP</td><td>多家企业</td><td>脱敏、提取通用部分</td><td>行业操作规范库</td></tr>
+        <tr><td>真实异常处理案例</td><td>多家企业</td><td>去除企业信息，保留通用模式</td><td>行业异常案例库</td></tr>
+        <tr><td>用户高频提问</td><td>多家企业</td><td>统计 + 归类</td><td>行业 FAQ 库</td></tr>
+        <tr><td>法规标准更新</td><td>平台维护</td><td>人工/AI 抓取</td><td>行业法规库</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box warning">
+    <div class="info-box-title">动态更新触发机制</div>
+    <ul>
+      <li>同一类问题在 ≥ N 家企业被问到</li>
+      <li>新的法规/标准发布</li>
+      <li>新的设备/工艺类型出现</li>
+      <li>平台运营人员审核通过</li>
+    </ul>
+  </div>
+
+  <div class="info-box success">
+    <div class="info-box-title">对企业的价值主张（落地页表达）</div>
+    <p><em>"您贡献的经验，会让整个行业知识库更完善 —— 而完善的行业基础库，又会反过来服务您的企业。这是一个<strong>越用越聪明</strong>的正循环。"</em></p>
+  </div>
+</div>
+
+<!-- §4 -->
+<div class="doc-section" id="section-4">
+  <div class="section-number">§4</div>
+  <h2 class="section-title">路径 A · 引导式问答详细设计</h2>
+
+  <h3 class="subsection-title">4.1 设计目标</h3>
+  <p style="color:var(--text-muted);margin-bottom:16px;">让老师傅"不用写文档，打开就问"，把脑子里的经验挖出来。</p>
+
+  <h3 class="subsection-title">4.2 设计原则：目标导向，不限数量 <span class="tag accent">v2.2 重要更新</span></h3>
+  <div class="info-box warning">
+    <div class="info-box-title">核心原则</div>
+    <ul>
+     <li>❌ 不设固定问题数量（"20-30题"只是参考范围）</li>
+      <li>✅ 设目标体系：明确"我们需要什么信息"</li>
+      <li>预设问题库作为工具库，实际问答根据目标动态调整</li>
+    </ul>
+  </div>
+  <div class="diagram">
+<span class="label">问答设计逻辑</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<span class="label">目标：</span>获取企业知识库所需的完整信息
+  <span class="arrow">↓</span>
+<span class="label">预设问题库（工具箱，不等于必须全问完）</span>
+  ├─ <span class="dim">工艺类问题（15个）</span>
+  ├─ <span class="dim">参数类问题（12个）</span>
+  ├─ <span class="dim">异常处理类（10个）</span>
+  └─ <span class="dim">...</span>
+  <span class="arrow">↓</span>
+<span class="label">实际问答流程</span>
+  ├─ <span class="dim">系统判断"当前站点还需要什么"</span>
+  ├─ <span class="dim">动态选下一题（不是线性顺序）</span>
+  └─ <span class="dim">目标达成即结束</span>
+      <span class="dim">（可能15题，可能35题，取决于站点复杂度）</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  </div>
+
+  <h3 class="subsection-title">4.3 多站点场景 <span class="tag accent">v2.2 重要更新</span></h3>
+  <div class="info-box warning">
+    <div class="info-box-title">真实业务逻辑</div>
+    <p>大多数污水站运维公司<strong>不只托管一个站</strong>。一家运维公司同时托管 N 个污水站，每个站情况都不同。</p>
+  </div>
+  <div class="diagram">
+<span class="label">企业知识库结构</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<span class="label">│ 公司层</span>
+<span class="dim">│   ├── 公司基本信息（名称/规模/资质）</span>
+<span class="dim">│   ├── 托管站点清单（站点A/B/C...）</span>
+<span class="dim">│   ├── 运营管理模式（集中值守/分散巡检/远程）</span>
+<span class="dim">│   └── 跨站点通用 SOP</span>
+<span class="dim">│</span>
+<span class="dim">│ 站点 A（独立知识单元）</span>
+<span class="dim">│   ├── 基础信息（工艺/水量/水质/设备）</span>
+<span class="dim">│   ├── 运营参数（DO/SV30/pH/加药量）</span>
+<span class="dim">│   ├── 异常处理（泡沫/污泥膨胀/出水超标）</span>
+<span class="dim">│   └── 应急预案（停电/设备故障/达标风险）</span>
+<span class="dim">│</span>
+<span class="dim">│ 站点 B（同上结构，内容独立）</span>
+<span class="dim">│   └── ...</span>
+<span class="dim">│</span>
+<span class="dim">│ 站点 C...</span>
+<span class="dim">│</span>
+<span class="dim">│ + 行业基础库（隐性）</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  </div>
+
+  <h3 class="subsection-title">4.4 问答目标体系（三层）<span class="tag accent">v2.2 新增</span></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>层级</th><th>目标</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="5"><span class="tag">公司层</span></td><td>公司基本信息</td><td>名称、规模、资质</td></tr>
+        <tr><td>托管站点清单</td><td>一共托管几个站，站点名称和位置</td></tr>
+        <tr><td>运营管理模式</td><td>集中值守 / 分散巡检 / 远程监控</td></tr>
+        <tr><td>人员配置</td><td>多少人，怎么分工</td></tr>
+        <tr><td>通用 SOP</td><td>跨站点的统一管理制度</td></tr>
+        <tr><td rowspan="9"><span class="tag">站点层</span></td><td>站点基本信息</td><td>站点名、服务客户、日处理水量</td></tr>
+        <tr><td>工艺流程</td><td>一级/二级/深度处理各单元</td></tr>
+        <tr><td>进水水质</td><td>COD/BOD/氨氮/SS/TN/TP 范围</td></tr>
+        <tr><td>出水标准</td><td>执行哪个标准（GB18466等）</td></tr>
+        <tr><td>设备配置</td><td>主要设备清单、规格参数</td></tr>
+        <tr><td>关键控制参数</td><td>DO/SV30/pH/回流比/加药量</td></tr>
+        <tr><td>日常巡检要点</td><td>每天/每周/每月巡检内容</td></tr>
+        <tr><td>常见异常处理</td><td>泡沫/污泥膨胀/出水超标等</td></tr>
+        <tr><td>应急预案</td><td>停电/设备故障/水质超标</td></tr>
+        <tr><td rowspan="3"><span class="tag">补充层</span></td><td>老师傅经验</td><td>"我们站遇到XX情况的处理方法"</td></tr>
+        <tr><td>企业特色做法</td><td>同行没有的、本站特有的经验</td></tr>
+        <tr><td>近期待解决问题</td><td>目前有什么棘手问题</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subsection-title">4.5 问答流程（多站点版）</h3>
+  <div class="diagram">
+<span class="arrow">①</span> <span class="dim">收集公司基本信息</span>
+        <span class="arrow">↓</span>
+<span class="arrow">②</span> <span class="label">确认托管站点数量</span> → 获取各站点名称/位置/规模
+        <span class="arrow">↓</span>
+<span class="arrow">③</span> <span class="label">逐站引导问答</span>（每个站点独立一套目标）
+  <span class="dim">├─ 站点 A：引导问答（目标达成）→ 生成站点知识模块</span>
+   <span class="dim">├─ 站点 B：引导问答（目标达成）→ 生成站点知识模块</span>
+   <span class="dim">└─ 站点 C...</span>
+        <span class="arrow">↓</span>
+<span class="arrow">④</span> <span class="dim">公司层信息汇总 + 各站点知识模块合并</span>
+        <span class="arrow">↓</span>
+<span class="arrow">⑤</span> <span class="label">企业知识库完成</span>
+  <span class="dim">（公司层 + N个站点模块 + 行业基础库）</span>
+  </div>
+
+  <h3 class="subsection-title">4.6 预设问题示例（环保-污水处理站） <span class="tag muted">v2.2 新增</span></h3>
+  <div class="info-box">
+    <div class="info-box-title">公司层问题</div>
+    <ul style="font-size:13px;color:var(--text-muted);line-height:1.8;padding-left:20px;">
+      <li><strong>Q1:</strong> 公司名称和成立时间？</li>
+      <li><strong>Q2:</strong> 目前托管了多少个污水站？能否列出站点名称和位置？</li>
+      <li><strong>Q3:</strong> 这些站点的服务客户类型有哪些？（医院/小区/工业园/其他）</li>
+      <li><strong>Q4:</strong> 公司有多少名运维人员？怎么分工的？</li>
+      <li><strong>Q5:</strong> 有没有跨站点的统一管理制度？</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="info-box-title">站点层问题（每个站点重复）</div>
+    <ul style="font-size:13px;color:var(--text-muted);line-height:1.8;padding-left:20px;">
+      <li><strong>Q6:</strong> 这个站点的名称和处理规模（日处理量 m³/d）？</li>
+      <li><strong>Q7:</strong> 服务的是哪类客户？进水水质大概什么范围？</li>
+      <li><strong>Q8:</strong> 用的是哪种工艺？每个处理单元的作用是什么？</li>
+      <li><strong>Q9:</strong> 出水执行哪个排放标准？（GB18466 / GB18918）</li>
+      <li><strong>Q10:</strong> 主要设备有哪些？规格参数？</li>
+      <li><strong>Q11:</strong> 曝气池溶解氧一般控制在多少？</li>
+      <li><strong>Q12:</strong> 出现污泥膨胀时怎么处理？</li>
+      <li><strong>Q13:</strong> 出水超标时的应急处置流程？</li>
+      <li><strong>...（以上只是示例，预设问题库按目标体系扩展，不强制全问）</strong></li>
+    </ul>
+  </div>
+
+  <h3 class="subsection-title">4.7 用户体验设计（产品内部）</h3>
+  <ul style="color:var(--text-muted);padding-left:20px;font-size:14px;line-height:1.8;">
+    <li>首页：公司层信息收集（简短，5-10题）</li>
+    <li>次页：站点选择（已有站点列表 + 新增站点）</li>
+    <li>逐站问答：每个站点独立引导，目标达成后进入下一站</li>
+    <li>进度展示：<strong>"已完成 2/5 个站点，共采集 38 条知识"</strong></li>
+    <li>退出提示："您的企业知识库已包含 3 个站点的完整信息，随时可保存退出"</li>
+  </ul>
+  <div class="info-box success">
+    <div class="info-box-title">Landing Page 展示方式</div>
+    <p>用户旅程模块展示多站点问答流程，强调<strong>目标导向</strong>：把该挖的都挖到，不漏关键信息。</p>
+  </div>
+</div>
+
+<!-- §5 -->
+<div class="doc-section" id="section-5">
+  <div class="section-number">§5</div>
+  <h2 class="section-title">路径 B · 文档上传详细设计</h2>
+
+  <h3 class="subsection-title">5.1 设计目标</h3>
+  <p style="color:var(--text-muted);margin-bottom:16px;">让"已经有文档的企业"快速整合资料，无需重复录入。</p>
+
+  <h3 class="subsection-title">5.2 支持的文档类型</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>类型</th><th>格式</th><th>优先级</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>Word 文档</td><td>.doc / .docx</td><td>⭐⭐⭐⭐⭐</td><td>最常见，含图/表/格式</td></tr>
+        <tr><td>PDF 文档</td><td>.pdf</td><td>⭐⭐⭐⭐⭐</td><td>扫描件需 OCR</td></tr>
+        <tr><td>Excel 表格</td><td>.xls / .xlsx</td><td>⭐⭐⭐⭐</td><td>数据/参数表</td></tr>
+        <tr><td>Markdown</td><td>.md</td><td>⭐⭐⭐</td><td>技术文档常见</td></tr>
+        <tr><td>纯文本</td><td>.txt</td><td>⭐⭐</td><td>简单备查</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subsection-title">5.3 推荐文档结构</h3>
+  <div class="info-box">
+    <div class="info-box-title">建议按以下结构组织文档，效果最好（不强求）</div>
+  </div>
+  <div class="diagram">
+<span class="label">📁 公司文档/</span>
+├── <span class="label">01_公司简介.md</span>           <span class="dim">（公司背景、规模、资质）</span>
+├── <span class="label">02_工艺流程/</span>
+│   ├── <span class="dim">工艺总览.md</span>
+│   ├── <span class="dim">预处理单元.md</span>
+│   ├── <span class="dim">生化处理单元.md</span>
+│   └── <span class="dim">消毒排放.md</span>
+├── <span class="label">03_设备手册/</span>
+│   ├── <span class="dim">设备清单.xlsx</span>
+│   ├── <span class="dim">鼓风机操作.md</span>
+│   └── <span class="dim">加药系统维护.md</span>
+├── <span class="label">04_运维制度/</span>
+│   ├── <span class="dim">巡检制度.md</span>
+│   ├── <span class="dim">交接班制度.md</span>
+│   └── <span class="dim">药剂管理制度.md</span>
+├── <span class="label">05_应急预案/</span>
+│   ├── <span class="dim">停电应急.md</span>
+│   ├── <span class="dim">设备故障.md</span>
+│   └── <span class="dim">出水超标.md</span>
+└── <span class="label">06_常见问题FAQ.md</span>
+  </div>
+
+  <h3 class="subsection-title">5.4 上传后处理流程</h3>
+  <div class="diagram">
+<span class="label">用户上传文档</span>
+    <span class="arrow">↓</span>
+<span class="dim">格式识别 + 解析（PDF/Word/Excel 各自适配器）</span>
+    <span class="arrow">↓</span>
+<span class="dim">章节切分（识别标题层级）</span>
+    <span class="arrow">↓</span>
+<span class="dim">关键信息抽取（参数、术语、操作步骤）</span>
+    <span class="arrow">↓</span>
+<span class="dim">与行业基础库比对（识别"通用部分"和"企业特色部分"）</span>
+    <span class="arrow">↓</span>
+<span class="dim">合并入企业知识库（打来源标签）</span>
+    <span class="arrow">↓</span>
+<span class="label">生成结构化目录 + 摘要</span>
+  </div>
+</div>
+
+<!-- §6 -->
+<div class="doc-section" id="section-6">
+  <div class="section-number">§6</div>
+  <h2 class="section-title">设计方向</h2>
+
+  <h3 class="subsection-title">6.1 美学定位</h3>
+  <div class="info-box">
+    <div class="info-box-title">"专业温度"</div>
+    <p>干净的 B2B 专业感 + 环保行业的自然温度感。不冷峻、不炫技。</p>
+    <p style="margin-top:8px;"><strong>设计灵感：</strong>环境监测仪表盘 + 现代工业设计（西门子、施耐德）+ 高端 B2B SaaS（Linear、Notion）+ 自然温度</p>
+  </div>
+
+  <h3 class="subsection-title">6.2 配色方案</h3>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-chip" style="background:#0F766E;"></div><div class="color-name">森林青 Primary</div><div class="color-hex">#0F766E</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#14B8A6;"></div><div class="color-name">柔青 Primary Light</div><div class="color-hex">#14B8A6</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#F97316;"></div><div class="color-name">暖珊瑚 Accent</div><div class="color-hex">#F97316</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#FAFAF9;"></div><div class="color-name">暖白 Background</div><div class="color-hex">#FAFAF9</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#FFFFFF;box-shadow:inset0 0 0 1px #E7E5E4;"></div><div class="color-name">纯白 Surface</div><div class="color-hex">#FFFFFF</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#1C1917;"></div><div class="color-name">石墨 Dark</div><div class="color-hex">#1C1917</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#78716C;"></div><div class="color-name">暖灰 Muted</div><div class="color-hex">#78716C</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#E7E5E4;"></div><div class="color-name">米石 Border</div><div class="color-hex">#E7E5E4</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#10B981;"></div><div class="color-name">翡翠 Success</div><div class="color-hex">#10B981</div></div>
+    <div class="color-swatch"><div class="color-chip" style="background:#F59E0B;"></div><div class="color-name">琥珀 Warning</div><div class="color-hex">#F59E0B</div></div>
+  </div>
+
+  <h3 class="subsection-title">6.3 字体 & 布局系统</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>元素</th><th>字重</th><th>尺寸</th><th>行高</th></tr></thead>
+      <tbody>
+        <tr><td>H1（Hero）</td><td>900</td><td>56px</td><td>1.1</td></tr>
+        <tr><td>H2（章节标题）</td><td>700</td><td>36px</td><td>1.2</td></tr>
+        <tr><td>H3（卡片标题）</td><td>700</td><td>20px</td><td>1.3</td></tr>
+        <tr><td>正文</td><td>400</td><td>15px</td><td>1.7</td></tr>
+        <tr><td>小字</td><td>400</td><td>14px</td><td>1.6</td></tr>
+        <tr><td>按钮</td><td>600</td><td>15px</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul style="color:var(--text-muted);padding-left:20px;font-size:14px;line-height:2;">
+    <li>容器最大宽度：1200px</li>
+    <li>章节纵向 padding：100px（移动端 60px）</li>
+    <li>卡片 padding：32px / 网格 gap：32px（移动端 24px）</li>
+    <li>圆角：卡片 16px / 按钮 10px / 徽章 9999px（胶囊）</li>
+  </ul>
+</div>
+
+<!-- §7 -->
+<div class="doc-section" id="section-7">
+  <div class="section-number">§7</div>
+  <h2 class="section-title">Hero Section 设计</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">7.1 概念</div>
+    <p><strong>"文字主导 + 微弱环境动效"</strong> — 干净、专业的首屏，配浮动排版 + 微动态渐变网格背景。专业但不无聊。</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-box-title">7.2 Hero 文案（v2.1）</div>
+    <ul>
+      <li><strong>主标题：</strong>让企业知识沉淀成可复用的<strong style="color:var(--primary);">资产</strong></li>
+      <li><strong>副标题：</strong>KnosAI · 企业知识绿洲 — 通过引导式问答 + 文档自动整合，构建企业专属的行业知识库</li>
+      <li><strong>CTA Primary：</strong>免费开始使用</li>
+      <li><strong>CTA Secondary：</strong>查看演示</li>
+      <li><strong>标签：</strong><span class="tag">🏭 多行业适配</span><span class="tag">💬 引导式问答</span><span class="tag">📄 文档智能整合</span><span class="tag">🤖 AI 智能问答</span></li>
+    </ul>
+  </div>
+
+  <div class="info-box warning">
+    <div class="info-box-title">7.3 统计条（保守表述，避免虚假数据）</div>
+    <ul>
+      <li>已为多行业小企业服务</li>
+      <li>上千次 AI 智能问答</li>
+      <li>用户满意度高</li>
+      <li>5 分钟完成首次搭建</li>
+    </ul>
+    <p style="margin-top:8px;">避免具体数字（如"2847个知识库"），改用"已服务"/"满意度高"等通用表达。</p>
+  </div>
+</div>
+
+<!-- §8 -->
+<div class="doc-section" id="section-8">
+  <div class="section-number">§8</div>
+  <h2 class="section-title">页面章节</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>模块</th><th>说明</th><th>优先级</th></tr></thead>
+      <tbody>
+        <tr><td>§8.1 导航</td><td>固定透明→滚动白色背景+模糊+阴影，Logo左+链接中+CTA右</td><td>✅ 已完成</td></tr>
+        <tr><td>§8.2 行业场景模块</td><td>行业卡片网格，让用户一眼看到"这就是为我做的"</td><td><span class="tag accent">v2 新增 · 高</span></td></tr>
+        <tr><td>§8.3 三大核心功能</td><td>引导式问答 / 文档智能整合 / AI 智能问答</td><td><span class="tag accent">v2 重构</span></td></tr>
+        <tr><td>§8.4 用户旅程</td><td>5步流程展开每步细节（选择行业→补充方式→问答→上传→启用）</td><td><span class="tag accent">v2 升级</span></td></tr>
+        <tr><td>§8.5 行业基础库模块</td><td>"开箱即用的行业知识底座"隐性层说明</td><td><span class="tag accent">v2 新增 · 高</span></td></tr>
+        <tr><td>§8.6 定价模块</td><td>¥0 / ¥299 / ¥899 三档（暂不优化）</td><td>⏸暂缓</td></tr>
+        <tr><td>§8.7 CTA 模块</td><td>深色渐变背景 + 单一 CTA 按钮</td><td>✅ 已完成</td></tr>
+        <tr><td>§8.8 Footer</td><td>深石墨背景 4 列网格 + 社交图标</td><td>✅ 已完成</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- §9 -->
+<div class="doc-section" id="section-9">
+  <div class="section-number">§9</div>
+  <h2 class="section-title">组件状态</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>状态</th><th>Primary</th><th>Secondary</th><th>Ghost</th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td>青底白字</td><td>白底青边</td><td>透明青字</td></tr>
+        <tr><td>Hover</td><td>深青+轻微抬起</td><td>浅青底</td><td>浅青底</td></tr>
+        <tr><td>Active</td><td>最深青</td><td>青底</td><td>青底</td></tr>
+        <tr><td>Disabled</td><td>灰底灰字</td><td>灰边灰字</td><td>灰字</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <div class="info-box-title">卡片状态</div>
+    <ul>
+      <li><strong>Default：</strong>白底、轻微阴影、16px 圆角</li>
+      <li><strong>Hover：</strong>阴影加深、translateY(-4px)</li>
+      <li><strong>边框：</strong>1px 米石色</li>
+    </ul>
+  </div>
+</div>
+
+<!-- §10 -->
+<div class="doc-section" id="section-10">
+  <div class="section-number">§10</div>
+  <h2 class="section-title">响应式断点</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>断点</th><th>宽度</th><th>行为</th></tr></thead>
+      <tbody>
+        <tr><td>Desktop</td><td>&gt; 1024px</td><td>完整布局、3列网格</td></tr>
+        <tr><td>Tablet</td><td>768px - 1024px</td><td>2列网格、调整间距</td></tr>
+        <tr><td>Mobile</td><td>&lt; 768px</td><td>单列、堆叠元素</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- §11 -->
+<div class="doc-section" id="section-11">
+  <div class="section-number">§11</div>
+  <h2 class="section-title">动效与交互</h2>
+  <ul style="color:var(--text-muted);padding-left:20px;font-size:14px;line-height:2;">
+    <li><strong>滚动动画：</strong>元素从底部淡入（Intersection Observer），列表交错延迟，平滑不突兀（300-500ms）</li>
+    <li><strong>悬浮效果：</strong>卡片 translateY(-4px) + 阴影加深 / 按钮 scale(1.02) + 阴影 / 链接颜色过渡</li>
+    <li><strong>加载状态：</strong>骨架屏（动态内容）+ 脉动动画</li>
+  </ul>
+</div>
+
+<!-- §12 -->
+<div class="doc-section" id="section-12">
+  <div class="section-number">§12</div>
+  <h2 class="section-title">技术实现</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>项</th><th>选型</th></tr></thead>
+      <tbody>
+        <tr><td>技术栈</td><td>纯 HTML5 + CSS3 + 原生 JS（不引入框架）</td></tr>
+        <tr><td>字体</td><td>Noto Sans SC（Google Fonts）</td></tr>
+        <tr><td>主题</td><td>CSS 自定义属性（CSS Variables）</td></tr>
+        <tr><td>设计方式</td><td>移动端优先的响应式设计</td></tr>
+        <tr><td>性能</td><td>关键 CSS 内联 / 字体预加载 / 图片懒加载 / 平滑滚动</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- §13 -->
+<div class="doc-section" id="section-13">
+  <div class="section-number">§13</div>
+  <h2 class="section-title">内容文案（v2.1 全量）</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>模块</th><th>文案</th></tr></thead>
+      <tbody>
+        <tr><td>Hero 主标题</td><td>让企业知识沉淀成可复用的<strong>资产</strong></td></tr>
+        <tr><td>Hero 副标题</td><td>KnosAI · 企业知识绿洲 — 通过引导式问答 + 文档自动整合，构建企业专属的行业知识库</td></tr>
+        <tr><td>功能1 · 引导式问答</td><td>把老师傅脑子里的经验挖出来 / 20-30 个问题，15-20 分钟即可生成完整知识库章节</td></tr>
+        <tr><td>功能2 · 文档智能整合</td><td>已有文档一键上传 / 支持 Word/PDF/Excel/Markdown，自动解析、分类、合并</td></tr>
+        <tr><td>功能3 · AI 智能问答</td><td>7×24 小时专属知识管家 / 基于企业知识库回答员工和客户提问</td></tr>
+        <tr><td>行业基础库说明</td><td>开箱即用的行业知识底座 — 法规标准、工艺流程、设备说明、常见异常、应急预案，您无需从零开始</td></tr>
+        <tr><td>动态更新价值主张</td><td>"您贡献的经验，会让整个行业知识库更完善。这是一个越用越聪明的正循环。"</td></tr>
+        <tr><td>用户旅程①</td><td>选择行业（30秒）/ 自动加载行业基础库</td></tr>
+        <tr><td>用户旅程②</td><td>选择补充方式（1分钟）/ 引导问答 或 文档上传</td></tr>
+        <tr><td>用户旅程③</td><td>引导问答（可选，15-20分钟）/ 20-30 个问题，挖掘隐性经验</td></tr>
+        <tr><td>用户旅程④</td><td>上传文档（可选，不限）/ PDF/Word/Excel/MD 批量上传</td></tr>
+        <tr><td>用户旅程⑤</td><td>启用 AI 问答（即时）/ 员工/客户可随时查询</td></tr>
+       <tr><td>定价 · 免费版</td><td>¥0/月 /1个知识库 / 基础搜索 / 免费开始</td></tr>
+        <tr><td>定价 · 专业版</td><td>¥299/月 / 无限知识库 /高级搜索+AI客服 / PDF+Word导出 / 5成员 / 立即升级</td></tr>
+        <tr><td>定价 · 企业版</td><td>¥899/月 / 专业版全部功能 / 无限成员 / 自定义模板 / 专属客服经理 / 联系销售</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- §14 -->
+<div class="doc-section" id="section-14">
+  <div class="section-number">§14</div>
+  <h2 class="section-title">文件结构</h2>
+  <div class="diagram">
+<span class="label">pulser-landing/</span>
+├── <span class="label">index.html</span>          <span class="dim">落地页主文件</span>
+├── <span class="label">spec.html</span>           <span class="dim">本文档（设计规范）</span>
+├── <span class="label">spec.md</span>             <span class="dim">设计规范（Markdown 源）</span>
+├── <span class="label">imgs/</span>
+│   └── <span class="dim">hero-bg.png</span> <span class="dim">Hero 背景图</span>
+└── <span class="dim">...</span>
+  </div>
+</div>
+
+<!-- §15 -->
+<div class="doc-section" id="section-15">
+  <div class="section-number">§15</div>
+  <h2 class="section-title">验证清单</h2>
+  <ul class="checklist">
+    <li>没有蓝/紫色（按配色方案）</li>
+    <li>Hero 区 100vh</li>
+    <li>所有章节间距正确</li>
+    <li>所有断点响应式正常</li>
+    <li>所有按钮有悬浮态</li>
+    <li>卡片有悬浮效果</li>
+    <li>平滑滚动行为</li>
+    <li>无 console 错误</li>
+    <li>所有资源正常加载</li>
+    <li>中文文字正确渲染</li>
+    <li>对比度符合可访问性</li>
+    <li class="done">品牌名 KnosAI · 企业知识绿洲（域名 knosAI.ltd）全部正确显示</li>
+    <li class="done">三大路径（基础库+问答+文档）在落地页有清晰呈现</li>
+    <li class="done">环保-污水处理站行业场景作为首期重点呈现</li>
+    <li class="done">统计数据使用保守/通用表述，避免虚假数字</li>
+    <li class="done">基础包动态更新机制（越用越聪明正循环）已写入文档</li>
+    <li class="done">问答设计目标导向（不定数量，定目标）已写入文档</li>
+    <li class="done">多站点架构（公司层+N个站点层）已写入文档</li>
+  </ul>
+</div>
+
+<!-- §16 -->
+<div class="doc-section" id="section-16">
+  <div class="section-number">§16</div>
+  <h2 class="section-title">版本记录</h2>
+  <div class="table-wrap">
+    <table class="version-table">
+      <thead><tr><th>版本</th><th>日期</th><th>核心变化</th></tr></thead>
+      <tbody>
+        <tr><td>v1</td><td>2026-06-09</td><td>初版（PulseR 脉冲R）</td></tr>
+        <tr><td>v2</td><td>2026-06-10</td><td>品牌升级 KnosAI · 企业知识绿洲（域名 knosAI.ltd）/ 架构升级三层知识结构 / 行业扩展接口设计 / 双路径输入引导问答+文档上传 / 首期行业环保-污水处理站运维 / 文案升级避免虚假数据</td></tr>
+        <tr><td>v2.2</td><td>2026-06-10</td><td>问答设计改为目标导向——不设固定问题数量，设目标体系，预设问题库作为工具动态调用 / 多站点场景——实际业务中运维公司托管多个站点，每个站点独立知识模块，企业知识库=公司层+N个站点层 / 问答流程更新为五步（公司信息→站点数量→逐站问答→文档上传→AI启用）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑</a>
+
+<script>
+  // Active TOC highlight
+  const sections = document.querySelectorAll('.doc-section');
+  const tocItems = document.querySelectorAll('.toc-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocItems.forEach(i => i.classList.remove('active'));
+        const active = document.querySelector(`.toc-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

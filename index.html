@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseR 脉冲R - 让经验传承更简单</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Primary Colors - Forest Teal */
+      --primary: #0F766E;
+      --primary-light: #14B8A6;
+      --primary-dark: #0D5D54;
+      
+      /* Accent - Warm Coral */
+      --accent: #F97316;
+      --accent-light: #FB923C;
+      
+      /* Backgrounds */
+      --bg-white: #FFFFFF;
+      --bg-warm: #FAFAF9;
+      --bg-light: #F5F5F4;
+      --bg-stone: #E7E5E4;
+      
+      /* Text */
+      --text-dark: #1C1917;
+      --text-muted: #78716C;
+      --text-light: #A8A29E;
+      
+      /* Semantic */
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      
+      /* Borders */
+      --border: #E7E5E4;
+      --border-light: #F5F5F4;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04);
+      --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.08), 0 2px 4px rgba(28, 25, 23, 0.04);
+      --shadow-lg: 0 12px 32px rgba(28, 25, 23, 0.1), 0 4px 8px rgba(28, 25, 23, 0.06);
+      
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      
+      /* Transitions */
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s ease;
+      --transition-slow: 0.4s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-fast);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all var(--transition-normal);
+      background: transparent;
+    }
+
+.nav.scrolled {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      padding: 14px 48px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #14B8A6;
+      transition: width var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-ghost:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-logo svg path {
+      stroke: white;
+    }
+
+    .nav-logo svg circle {
+      fill: white;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #14B8A6;
+      transition: width var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #14B8A6;
+      transition: width var(--transition-fast);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ========== Buttons ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+.btn-primary {
+      background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #14B8A6 0%, #5EEAD4 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(20, 184, 166, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-white {
+      background: white;
+      color: #0F172A;
+      font-weight: 700;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 118, 110, 0.05);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary);
+      background: rgba(15, 118, 110, 0.05);
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-lg {
+      padding: 16px 32px;
+      font-size: 16px;
+    }
+
+    .btn-xl {
+      padding: 18px 40px;
+      font-size: 17px;
+      border-radius: var(--radius-lg);
+    }
+
+    /* ========== Hero Section ========== */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    /* 科技感动态背景 - 明显版 */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* 大光晕1 */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      top: -200px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.4) 0%, rgba(15, 118, 110, 0.1) 40%, transparent 70%);
+      animation: orbFloat1 12s ease-in-out infinite;
+    }
+
+    /* 大光晕2 */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      bottom: -100px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0.1) 40%, transparent 70%);
+      animation: orbFloat2 15s ease-in-out infinite;
+    }
+
+    /* 光晕3 */
+    .hero-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 60%);
+      animation: glowPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(100px, 80px) scale(1.1); }
+    }
+
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-80px, -60px) scale(1.15); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* 科技网格线 */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(20, 184, 166, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 184, 166, 0.15) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: gridPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* 水平扫描线 */
+    .hero-scanline {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.5), transparent);
+      animation: scanLine 6s linear infinite;
+    }
+
+    @keyframes scanLine {
+      0% { top: -10%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.3) 0%,
+        rgba(15, 23, 42, 0.1) 50%,
+        rgba(15, 23, 42, 0.4) 100%
+      );
+      z-index: 2;
+    }
+
+.hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 32px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 118, 110, 0.3);
+      border: 1px solid rgba(20, 184, 166, 0.4);
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: #5EEAD4;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, #14B8A6 0%, #5EEAD4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      transition: all var(--transition-fast);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-tag:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .hero-tag span {
+      font-size: 16px;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 28px 48px;
+      margin-top: 60px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #5EEAD4;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+
+
+    
+
+    /* ========== Sections ========== */
+    .section {
+      padding: 100px 48px;
+    }
+
+    .section + .section {
+      position: relative;
+    }
+
+    .section + .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(15, 118, 110, 0.2), transparent);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: rgba(15, 118, 110, 0.08);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ========== Features Section ========== */
+    .features {
+      background: var(--bg-light);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      border: 1px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(15, 118, 110, 0.1);
+    }
+
+    .feature-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(20, 184, 166, 0.08));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 24px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ========== Journey Section ========== */
+    .journey {
+      background: white;
+    }
+
+    .journey-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 64px;
+    }
+
+    .journey-steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 80px;
+      right: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-light), var(--accent));
+      border-radius: 2px;
+    }
+
+    .journey-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 16px;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 10;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-fast);
+    }
+
+    .journey-step:hover .step-number {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .step-time {
+      display: inline-block;
+      background: rgba(15, 118, 110, 0.08);
+      color: var(--primary);
+      padding: 4px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ========== Pricing Section ========== */
+    .pricing {
+      background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-warm) 100%);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1060px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all var(--transition-normal);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--primary);
+      position: relative;
+      padding: 48px 32px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 6px 20px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pricing-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      margin-bottom: 28px;
+    }
+
+    .pricing-amount {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .pricing-period {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .pricing-features li.disabled {
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+
+    .pricing-features li.disabled::before {
+      content: '–';
+      color: var(--text-light);
+    }
+
+    /* ========== CTA Section ========== */
+    .cta {
+      background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
+      padding: 100px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center top, rgba(15, 118, 110, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 10;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      background: #1C1917;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 64px 48px 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto 48px;
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-column h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      font-size: 14px;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all var(--transition-fast);
+    }
+
+    .footer-social a:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ========== Animations ========== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 720px;
+      }
+      
+      .pricing-card.featured {
+        transform: none;
+      }
+      
+      .journey-steps {
+        flex-wrap: wrap;
+        gap: 48px;
+      }
+      
+      .journey-steps::before {
+        display: none;
+      }
+      
+      .journey-step {
+        flex: 0 0 28%;
+      }
+      
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        padding: 16px 24px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero-content {
+        padding: 0 20px;
+      }
+      
+      .hero-actions {
+        flex-direction: column;
+      }
+      
+      .stats-bar {
+        padding: 24px;
+        margin-top: 40px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      
+      .stat-item {
+        border-right: none;
+        padding: 0;
+      }
+      
+      .stat-item:nth-child(1),
+      .stat-item:nth-child(2) {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+      }
+      
+      .section {
+        padding: 60px 24px;
+      }
+      
+      .features-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .journey-step {
+        flex: 0 0 100%;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="3" fill="white"/>
+      </svg>
+      PulseR 脉冲R
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">功能介绍</a>
+      <a href="#pricing" class="nav-link">定价方案</a>
+      <a href="#" class="nav-link">行业模板</a>
+      <a href="#" class="nav-link">关于我们</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/login" class="btn btn-ghost">登录</a>
+      <a href="/register" class="btn btn-primary">免费开始</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-scanline"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        环保行业首选知识管理工具
+      </div>
+      
+      <h1>让经验传承<span class="highlight">更简单</span></h1>
+      <p class="hero-subtitle">
+        帮助环保行业小企业通过引导式问答<br>
+        将团队隐性知识转化为结构化知识库
+      </p>
+      
+      <div class="hero-actions">
+        <a href="/register" class="btn btn-primary btn-xl">免费开始使用</a>
+        <a href="#features" class="btn btn-secondary btn-xl">了解更多</a>
+      </div>
+      
+      <div class="hero-tags">
+        <span class="hero-tag"><span>🧠</span> 隐性知识提取</span>
+        <span class="hero-tag"><span>🏭</span> 环保行业首发</span>
+        <span class="hero-tag"><span>💬</span> 引导式问答</span>
+        <span class="hero-tag"><span>🤖</span> AI 智能应用</span>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar animate-on-scroll">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">2,847</div>
+            <div class="stat-label">已创建知识库</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">50,000+</div>
+            <div class="stat-label">AI 问答次数</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">98%</div>
+            <div class="stat-label">用户满意度</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">5分钟</div>
+            <div class="stat-label">完成首次提取</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">核心功能</span>
+        <h2 class="section-title">让知识管理变得简单高效</h2>
+        <p class="section-desc">无需复杂培训，打开就问。让每一位员工都能参与知识库的建设和使用。</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">💬</div>
+          <h3>引导式问答</h3>
+          <p>无需准备任何文档，打开就问。行业模板自动引导，20-30个问题即可生成完整知识库。</p>
+        </div>
+        
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">📚</div>
+          <h3>结构化知识库</h3>
+          <p>一问一答生成操作手册、培训资料、FAQ。内容自动分类整理，形成清晰的章节结构。</p>
+        </div>
+        
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon">🤖</div>
+          <h3>AI 智能问答</h3>
+          <p>基于知识库回答员工和客户问题。7×24小时在线，快速响应，降低培训成本。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Section -->
+  <section class="section journey">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">用户旅程</span>
+        <h2 class="section-title">只需五步，完成知识提取</h2>
+        <p class="section-desc">简单直观的流程设计，让每一位员工都能轻松上手</p>
+      </div>
+      
+      <div class="journey-steps">
+        <div class="journey-step animate-on-scroll">
+          <div class="step-number">1</div>
+          <span class="step-time">30秒</span>
+          <div class="step-title">注册账号</div>
+          <div class="step-desc">邮箱注册，无需复杂验证</div>
+        </div>
+        
+        <div class="journey-step animate-on-scroll">
+          <div class="step-number">2</div>
+          <span class="step-time">1分钟</span>
+          <div class="step-title">选择模板</div>
+          <div class="step-desc">环保/制造等行业模板</div>
+        </div>
+        
+        <div class="journey-step animate-on-scroll">
+          <div class="step-number">3</div>
+          <span class="step-time">10分钟</span>
+          <div class="step-title">引导问答</div>
+          <div class="step-desc">20-30个问题逐步回答</div>
+        </div>
+        
+        <div class="journey-step animate-on-scroll">
+          <div class="step-number">4</div>
+          <span class="step-time">即时</span>
+          <div class="step-title">生成知识库</div>
+          <div class="step-desc">自动整理成结构化章节</div>
+        </div>
+        
+        <div class="journey-step animate-on-scroll">
+          <div class="step-number">5</div>
+          <span class="step-time">随时</span>
+          <div class="step-title">启用 AI</div>
+          <div class="step-desc">智能客服即刻上线</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="section pricing" id="pricing">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">定价方案</span>
+        <h2 class="section-title">简单透明的定价</h2>
+        <p class="section-desc">根据团队规模选择合适方案，从免费开始，逐步扩展</p>
+      </div>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card animate-on-scroll">
+          <div class="pricing-name">免费版</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">¥0</span>
+            <span class="pricing-period">/ 永久</span>
+          </div>
+          <ul class="pricing-features">
+            <li>1 个知识库</li>
+            <li>基础搜索功能</li>
+            <li class="disabled">AI 客服功能</li>
+            <li class="disabled">导出功能</li>
+            <li class="disabled">团队协作</li>
+          </ul>
+          <a href="/register" class="btn btn-secondary btn-lg">免费开始</a>
+        </div>
+        
+        <div class="pricing-card featured animate-on-scroll">
+          <span class="pricing-badge">最受欢迎</span>
+          <div class="pricing-name">专业版</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">¥299</span>
+            <span class="pricing-period">/ 月</span>
+          </div>
+          <ul class="pricing-features">
+            <li>无限知识库</li>
+            <li>高级搜索 + AI 客服</li>
+            <li>PDF/Word 导出</li>
+            <li>优先级支持</li>
+            <li>5 个团队成员</li>
+          </ul>
+          <a href="/register?plan=pro" class="btn btn-primary btn-lg">立即升级</a>
+        </div>
+        
+        <div class="pricing-card animate-on-scroll">
+          <div class="pricing-name">企业版</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">¥899</span>
+            <span class="pricing-period">/ 月</span>
+          </div>
+          <ul class="pricing-features">
+            <li>专业版全部功能</li>
+            <li>无限团队成员</li>
+            <li>自定义模板</li>
+            <li>专属客服经理</li>
+            <li>数据导出 API</li>
+          </ul>
+          <a href="/register?plan=enterprise" class="btn btn-secondary btn-lg">联系销售</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta-content animate-on-scroll">
+      <h2>准备好开始了吗？</h2>
+      <p>无需信用卡，5 分钟完成首次知识提取</p>
+      <a href="/register" class="btn btn-white btn-xl">免费创建知识库</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+          PulseR 脉冲R
+        </div>
+        <p>帮助小企业将团队隐性知识转化为可复用的知识资产。专注环保行业，让经验传承更简单。</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="#">功能介绍</a></li>
+          <li><a href="#">定价方案</a></li>
+          <li><a href="#">行业模板</a></li>
+          <li><a href="#">更新日志</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>公司</h4>
+        <ul>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">联系方式</a></li>
+          <li><a href="#">加入团队</a></li>
+          <li><a href="#">博客</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>支持</h4>
+        <ul>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">服务条款</a></li>
+          <li><a href="#">隐私政策</a></li>
+          <li><a href="#">安全说明</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span class="footer-copyright">© 2026 PulseR 脉冲R. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" title="微信">💬</a>
+        <a href="#" title="微信公众号">📢</a>
+        <a href="#" title="知乎">💡</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Scroll animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

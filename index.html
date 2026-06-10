@@ -7,1120 +7,273 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Primary Colors - Forest Teal */
       --primary: #0F766E;
       --primary-light: #14B8A6;
       --primary-dark: #0D5D54;
-      
-      /* Accent - Warm Coral */
       --accent: #F97316;
       --accent-light: #FB923C;
-      
-      /* Backgrounds */
       --bg-white: #FFFFFF;
       --bg-warm: #FAFAF9;
       --bg-light: #F5F5F4;
       --bg-stone: #E7E5E4;
-      
-      /* Text */
       --text-dark: #1C1917;
       --text-muted: #78716C;
       --text-light: #A8A29E;
-      
-      /* Semantic */
       --success: #10B981;
       --warning: #F59E0B;
       --danger: #EF4444;
-      
-      /* Borders */
       --border: #E7E5E4;
       --border-light: #F5F5F4;
-      
-      /* Shadows */
-      --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04);
-      --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.08), 0 2px 4px rgba(28, 25, 23, 0.04);
-      --shadow-lg: 0 12px 32px rgba(28, 25, 23, 0.1), 0 4px 8px rgba(28, 25, 23, 0.06);
-      
-      /* Border Radius */
+      --shadow-sm: 0 1px 3px rgba(28,25,23,0.06),0 1px 2px rgba(28,25,23,0.04);
+      --shadow-md: 0 4px 12px rgba(28,25,23,0.08),0 2px 4px rgba(28,25,23,0.04);
+      --shadow-lg: 0 12px 32px rgba(28,25,23,0.1),0 4px 8px rgba(28,25,23,0.06);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 16px;
       --radius-full: 9999px;
-      
-      /* Transitions */
       --transition-fast: 0.15s ease;
       --transition-normal: 0.25s ease;
       --transition-slow: 0.4s ease;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-warm);
-      color: var(--text-dark);
-      line-height: 1.7;
-      font-size: 15px;
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color var(--transition-fast);
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* ========== Navigation ========== */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 20px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all var(--transition-normal);
-      background: transparent;
-    }
-
-.nav.scrolled {
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      padding: 14px 48px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
-      position: relative;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #14B8A6;
-      transition: width var(--transition-fast);
-    }
-
-    .nav-link:hover {
-      color: white;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .btn-ghost:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-    }
-
-    .nav-logo svg path {
-      stroke: white;
-    }
-
-    .nav-logo svg circle {
-      fill: white;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
-      position: relative;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #14B8A6;
-      transition: width var(--transition-fast);
-    }
-
-    .nav-link:hover {
-      color: white;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-logo svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-muted);
-      position: relative;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #14B8A6;
-      transition: width var(--transition-fast);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    /* ========== Buttons ========== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 24px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all var(--transition-fast);
-      white-space: nowrap;
-    }
-
-.btn-primary {
-      background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
-      color: white;
-      box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #14B8A6 0%, #5EEAD4 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(20, 184, 166, 0.4);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.6);
-    }
-
-    .btn-white {
-      background: white;
-      color: #0F172A;
-      font-weight: 700;
-    }
-
-    .btn-white:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--primary);
-      border: 1.5px solid var(--primary);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(15, 118, 110, 0.05);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-muted);
-    }
-
-    .btn-ghost:hover {
-      color: var(--primary);
-      background: rgba(15, 118, 110, 0.05);
-    }
-
-    .btn-white {
-      background: white;
-      color: var(--primary);
-    }
-
-    .btn-white:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .btn-lg {
-      padding: 16px 32px;
-      font-size: 16px;
-    }
-
-    .btn-xl {
-      padding: 18px 40px;
-      font-size: 17px;
-      border-radius: var(--radius-lg);
-    }
-
-    /* ========== Hero Section ========== */
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #0F172A;
-    }
-
-    /* 科技感动态背景 - 明显版 */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    /* 大光晕1 */
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      width: 800px;
-      height: 800px;
-      top: -200px;
-      left: -200px;
-      background: radial-gradient(circle, rgba(15, 118, 110, 0.4) 0%, rgba(15, 118, 110, 0.1) 40%, transparent 70%);
-      animation: orbFloat1 12s ease-in-out infinite;
-    }
-
-    /* 大光晕2 */
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      bottom: -100px;
-      right: -100px;
-      background: radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0.1) 40%, transparent 70%);
-      animation: orbFloat2 15s ease-in-out infinite;
-    }
-
-    /* 光晕3 */
-    .hero-glow {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 60%);
-      animation: glowPulse 8s ease-in-out infinite;
-    }
-
-    @keyframes orbFloat1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(100px, 80px) scale(1.1); }
-    }
-
-    @keyframes orbFloat2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-80px, -60px) scale(1.15); }
-    }
-
-    @keyframes glowPulse {
-      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    /* 科技网格线 */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(20, 184, 166, 0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(20, 184, 166, 0.15) 1px, transparent 1px);
-      background-size: 80px 80px;
-      animation: gridPulse 3s ease-in-out infinite;
-    }
-
-    @keyframes gridPulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    /* 水平扫描线 */
-    .hero-scanline {
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.5), transparent);
-      animation: scanLine 6s linear infinite;
-    }
-
-    @keyframes scanLine {
-      0% { top: -10%; opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { top: 110%; opacity: 0; }
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(15, 23, 42, 0.3) 0%,
-        rgba(15, 23, 42, 0.1) 50%,
-        rgba(15, 23, 42, 0.4) 100%
-      );
-      z-index: 2;
-    }
-
-.hero-content {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      max-width: 800px;
-      padding: 0 32px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(15, 118, 110, 0.3);
-      border: 1px solid rgba(20, 184, 166, 0.4);
-      padding: 8px 20px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 500;
-      color: #5EEAD4;
-      margin-bottom: 28px;
-    }
-
-    .hero-badge svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 900;
-      color: white;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-
-    .hero h1 .highlight {
-      background: linear-gradient(135deg, #14B8A6 0%, #5EEAD4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(16px, 2vw, 20px);
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 48px;
-      flex-wrap: wrap;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 10px 18px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
-      transition: all var(--transition-fast);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-tag:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .hero-tag span {
-      font-size: 16px;
-    }
-
-    /* Stats Bar */
-    .stats-bar {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-lg);
-      padding: 28px 48px;
-      margin-top: 60px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 0 20px;
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
-
-    .stat-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #5EEAD4;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-
-
-    
-
-    /* ========== Sections ========== */
-    .section {
-      padding: 100px 48px;
-    }
-
-    .section + .section {
-      position: relative;
-    }
-
-    .section + .section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(15, 118, 110, 0.2), transparent);
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 64px;
-    }
-
-    .section-label {
-      display: inline-block;
-      background: rgba(15, 118, 110, 0.08);
-      color: var(--primary);
-      padding: 6px 16px;
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: clamp(28px, 4vw, 36px);
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ========== Features Section ========== */
-    .features {
-      background: var(--bg-light);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    .feature-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 36px;
-      box-shadow: var(--shadow-sm);
-      transition: all var(--transition-normal);
-      border: 1px solid transparent;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(15, 118, 110, 0.1);
-    }
-
-    .feature-icon {
-      width: 72px;
-      height: 72px;
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(20, 184, 166, 0.08));
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      margin-bottom: 24px;
-    }
-
-    .feature-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 12px;
-    }
-
-    .feature-card p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ========== Journey Section ========== */
-    .journey {
-      background: white;
-    }
-
-    .journey-steps {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      margin-top: 64px;
-    }
-
-    .journey-steps::before {
-      content: '';
-      position: absolute;
-      top: 40px;
-      left: 80px;
-      right: 80px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary-light), var(--accent));
-      border-radius: 2px;
-    }
-
-    .journey-step {
-      flex: 1;
-      text-align: center;
-      position: relative;
-      padding: 0 16px;
-    }
-
-    .step-number {
-      width: 80px;
-      height: 80px;
-      background: white;
-      border: 3px solid var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 0 auto 24px;
-      position: relative;
-      z-index: 10;
-      box-shadow: var(--shadow-md);
-      transition: all var(--transition-fast);
-    }
-
-    .journey-step:hover .step-number {
-      background: var(--primary);
-      color: white;
-      transform: scale(1.05);
-    }
-
-    .step-time {
-      display: inline-block;
-      background: rgba(15, 118, 110, 0.08);
-      color: var(--primary);
-      padding: 4px 14px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
-      font-weight: 500;
-      margin-bottom: 14px;
-    }
-
-    .step-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* ========== Pricing Section ========== */
-    .pricing {
-      background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-warm) 100%);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      max-width: 1060px;
-      margin: 0 auto;
-      align-items: center;
-    }
-
-    .pricing-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 40px 32px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-      text-align: center;
-      transition: all var(--transition-normal);
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .pricing-card.featured {
-      border: 2px solid var(--primary);
-      position: relative;
-      padding: 48px 32px;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: white;
-      padding: 6px 20px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .pricing-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .pricing-price {
-      margin-bottom: 28px;
-    }
-
-    .pricing-amount {
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--primary);
-    }
-
-    .pricing-period {
-      font-size: 14px;
-      color: var(--text-light);
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-      text-align: left;
-    }
-
-    .pricing-features li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-light);
-      font-size: 14px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .pricing-features li::before {
-      content: '✓';
-      color: var(--success);
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .pricing-features li.disabled {
-      color: var(--text-light);
-      text-decoration: line-through;
-    }
-
-    .pricing-features li.disabled::before {
-      content: '–';
-      color: var(--text-light);
-    }
-
-    /* ========== CTA Section ========== */
-    .cta {
-      background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
-      padding: 100px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(ellipse at center top, rgba(15, 118, 110, 0.2) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-content {
-      position: relative;
-      z-index: 10;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cta h2 {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 700;
-      color: white;
-      margin-bottom: 16px;
-    }
-
-    .cta p {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 40px;
-    }
-
-    /* ========== Footer ========== */
-    .footer {
-      background: #1C1917;
-      color: rgba(255, 255, 255, 0.7);
-      padding: 64px 48px 32px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 48px;
-      max-width: 1200px;
-      margin: 0 auto 48px;
-    }
-
-    .footer-brand {
-      max-width: 280px;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 16px;
-    }
-
-    .footer-logo svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .footer-brand p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .footer-column h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: white;
-      margin-bottom: 20px;
-    }
-
-    .footer-column ul {
-      list-style: none;
-    }
-
-    .footer-column li {
-      margin-bottom: 12px;
-    }
-
-    .footer-column a {
-      font-size: 14px;
-      transition: color var(--transition-fast);
-    }
-
-    .footer-column a:hover {
-      color: white;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 32px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-copyright {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 16px;
-    }
-
-    .footer-social a {
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      transition: all var(--transition-fast);
-    }
-
-    .footer-social a:hover {
-      background: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    /* ========== Animations ========== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ========== Responsive ========== */
-    @media (max-width: 1024px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 720px;
-      }
-      
-      .pricing-card.featured {
-        transform: none;
-      }
-      
-      .journey-steps {
-        flex-wrap: wrap;
-        gap: 48px;
-      }
-      
-      .journey-steps::before {
-        display: none;
-      }
-      
-      .journey-step {
-        flex: 0 0 28%;
-      }
-      
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav {
-        padding: 16px 24px;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .hero-content {
-        padding: 0 20px;
-      }
-      
-      .hero-actions {
-        flex-direction: column;
-      }
-      
-      .stats-bar {
-        padding: 24px;
-        margin-top: 40px;
-      }
-      
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-      }
-      
-      .stat-item {
-        border-right: none;
-        padding: 0;
-      }
-      
-      .stat-item:nth-child(1),
-      .stat-item:nth-child(2) {
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 16px;
-        margin-bottom: 16px;
-      }
-      
-      .section {
-        padding: 60px 24px;
-      }
-      
-      .features-grid,
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .journey-step {
-        flex: 0 0 100%;
-      }
-      
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-      
-      .footer-bottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-      }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-warm);color:var(--text-dark);line-height:1.7;font-size:15px;overflow-x:hidden}
+    a{text-decoration:none;color:inherit;transition:color var(--transition-fast)}
+    img{max-width:100%;height:auto}
+
+    /* Navigation */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all var(--transition-normal);background:transparent}
+    .nav.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:14px 48px}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:white}
+    .nav.scrolled .nav-logo{color:var(--primary)}
+    .nav-logo svg{width:32px;height:32px}
+    .nav-logo svg path{stroke:#fff;transition:stroke var(--transition-fast)}
+    .nav.scrolled .nav-logo svg path{stroke:var(--primary)}
+    .nav-logo svg circle{fill:#fff;transition:fill var(--transition-fast)}
+    .nav.scrolled .nav-logo svg circle{fill:var(--primary)}
+    .nav-links{display:flex;align-items:center;gap:36px}
+    .nav-link{font-size:14px;font-weight:500;color:rgba(255,255,255,0.75);position:relative;transition:color var(--transition-fast)}
+    .nav.scrolled .nav-link{color:var(--text-muted)}
+    .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary-light);transition:width var(--transition-fast)}
+    .nav-link:hover{color:#fff}
+    .nav.scrolled .nav-link:hover{color:var(--primary)}
+    .nav-link:hover::after{width:100%}
+    .nav-actions{display:flex;align-items:center;gap:12px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:var(--radius-md);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all var(--transition-fast);white-space:nowrap}
+    .btn-primary{background:linear-gradient(135deg,#0F766E 0%,#14B8A6 100%);color:white;box-shadow:0 4px 16px rgba(20,184,166,0.3)}
+    .btn-primary:hover{background:linear-gradient(135deg,#14B8A6 0%,#5EEAD4 100%);transform:translateY(-2px);box-shadow:0 6px 24px rgba(20,184,166,0.4)}
+    .btn-secondary{background:white;color:var(--primary);border:1.5px solid var(--primary)}
+    .btn-secondary:hover{background:rgba(15,118,110,0.05)}
+    .btn-ghost{background:transparent;color:rgba(255,255,255,0.7)}
+    .btn-ghost:hover{color:white;background:rgba(255,255,255,0.1)}
+    .nav.scrolled .btn-ghost{color:var(--text-muted)}
+    .nav.scrolled .btn-ghost:hover{color:var(--primary);background:rgba(15,118,110,0.05)}
+    .btn-white{background:white;color:var(--primary);font-weight:700}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .btn-lg{padding:16px 32px;font-size:16px}
+    .btn-xl{padding:18px 40px;font-size:17px;border-radius:var(--radius-lg)}
+
+    /* Hero */
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0F172A}
+    .hero-bg{position:absolute;inset:0;z-index:1;overflow:hidden}
+    .hero-bg::before{content:'';position:absolute;width:800px;height:800px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(15,118,110,0.4) 0%,rgba(15,118,110,0.1) 40%,transparent 70%);animation:orbFloat1 12s ease-in-out infinite}
+    .hero-bg::after{content:'';position:absolute;width:600px;height:600px;bottom:-100px;right:-100px;background:radial-gradient(circle,rgba(20,184,166,0.35) 0%,rgba(20,184,166,0.1) 40%,transparent 70%);animation:orbFloat2 15s ease-in-out infinite}
+    .hero-glow{position:absolute;width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(20,184,166,0.15) 0%,transparent 60%);animation:glowPulse 8s ease-in-out infinite}
+    @keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,80px) scale(1.1)}}
+    @keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,-60px) scale(1.15)}}
+    @keyframes glowPulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(20,184,166,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(20,184,166,0.15) 1px,transparent 1px);background-size:80px 80px;animation:gridPulse 3s ease-in-out infinite}
+    @keyframes gridPulse{0%,100%{opacity:0.6}50%{opacity:1}}
+    .hero-scanline{position:absolute;width:100%;height:2px;background:linear-gradient(90deg,transparent,rgba(20,184,166,0.5),transparent);animation:scanLine 6s linear infinite}
+    @keyframes scanLine{0%{top:-10%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:110%;opacity:0}}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,42,0.3) 0%,rgba(15,23,42,0.1) 50%,rgba(15,23,42,0.4) 100%);z-index:2}
+    .hero-content{position:relative;z-index:10;text-align:center;max-width:800px;padding:0 32px}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(15,118,110,0.3);border:1px solid rgba(20,184,166,0.4);padding:8px 20px;border-radius:var(--radius-full);font-size:13px;font-weight:500;color:#5EEAD4;margin-bottom:28px}
+    .hero-badge svg{width:16px;height:16px}
+    .hero h1{font-size:clamp(40px,6vw,64px);font-weight:900;color:white;margin-bottom:20px;letter-spacing:-0.02em;line-height:1.1}
+    .hero h1 .highlight{background:linear-gradient(135deg,#14B8A6 0%,#5EEAD4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-subtitle{font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,0.8);margin-bottom:40px;line-height:1.7}
+    .hero-actions{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px;flex-wrap:wrap}
+    .hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+    .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:10px 18px;border-radius:var(--radius-full);font-size:13px;color:rgba(255,255,255,0.85);transition:all var(--transition-fast);backdrop-filter:blur(8px)}
+    .hero-tag:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px)}
+    .hero-tag span{font-size:16px}
+    .stats-bar{background:rgba(255,255,255,0.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);padding:28px 48px;margin-top:60px}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+    .stat-item{text-align:center;padding:0 20px;border-right:1px solid rgba(255,255,255,0.15)}
+    .stat-item:last-child{border-right:none}
+    .stat-value{font-size:28px;font-weight:700;color:#5EEAD4;margin-bottom:4px}
+    .stat-label{font-size:13px;color:rgba(255,255,255,0.6)}
+
+    /* Sections */
+    .section{padding:100px 48px;position:relative}
+    .section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(15,118,110,0.2),transparent)}
+    .section:first-child::before{display:none}
+    .container{max-width:1200px;margin:0 auto}
+    .section-header{text-align:center;max-width:600px;margin:0 auto 64px}
+    .section-label{display:inline-block;background:rgba(15,118,110,0.08);color:var(--primary);padding:6px 16px;border-radius:var(--radius-full);font-size:13px;font-weight:600;margin-bottom:16px}
+    .section-title{font-size:clamp(28px,4vw,36px);font-weight:700;color:var(--text-dark);margin-bottom:16px;line-height:1.2}
+    .section-desc{font-size:16px;color:var(--text-muted);line-height:1.7}
+
+    /* Industry Cards */
+    .industry-section{background:var(--bg-light)}
+    .industry-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .industry-card{background:white;border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);transition:all var(--transition-normal);cursor:default;position:relative;overflow:hidden}
+    .industry-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(15,118,110,0.2)}
+    .industry-card.featured{border-color:var(--primary);background:linear-gradient(135deg,rgba(15,118,110,0.04),white)}
+    .industry-card.featured::before{content:'首期';position:absolute;top:16px;right:-28px;background:var(--primary);color:white;font-size:11px;font-weight:700;padding:4px 32px;transform:rotate(45deg)}
+    .industry-card-icon{font-size:36px;margin-bottom:16px}
+    .industry-card h3{font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+    .industry-card p{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .industry-card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+    .industry-tag{display:inline-block;background:var(--bg-light);color:var(--text-muted);font-size:11px;padding:3px 10px;border-radius:var(--radius-full);border:1px solid var(--border-light)}
+    .industry-card-link{font-size:13px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:4px}
+    .industry-card-link:hover{gap:8px}
+    .industry-more{text-align:center;padding:24px 0 0}
+    .industry-more span{font-size:14px;color:var(--text-muted);background:var(--bg-light);border:1px dashed var(--border);padding:12px 28px;border-radius:var(--radius-full);display:inline-block}
+
+    /* Multi-site Architecture Visualization */
+    .multi-site-viz{background:white;border-radius:var(--radius-lg);padding:40px;margin-top:48px;border:1px solid var(--border)}
+    .multi-site-title{text-align:center;font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:32px}
+    .multi-site-title span{color:var(--primary)}
+    .multi-site-diagram{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+    .ms-company{background:linear-gradient(135deg,#0F766E,#14B8A6);color:white;padding:20px 32px;border-radius:var(--radius-lg);text-align:center;min-width:160px;box-shadow:var(--shadow-md)}
+    .ms-company-name{font-size:16px;font-weight:700;margin-bottom:4px}
+    .ms-company-desc{font-size:12px;opacity:0.85}
+    .ms-arrow{font-size:28px;color:var(--text-muted);padding:0 16px}
+    .ms-arrow svg{width:40px;height:40px;vertical-align:middle}
+    .ms-sites{display:flex;flex-wrap:wrap;gap:16px;max-width:400px}
+    .ms-site{border:2px solid var(--primary);border-radius:var(--radius-md);padding:14px 18px;background:var(--bg-warm);min-width:130px;text-align:center;transition:all var(--transition-fast)}
+    .ms-site:hover{border-color:var(--accent);background:rgba(249,115,22,0.05);transform:translateY(-2px)}
+    .ms-site-name{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px}
+    .ms-site-meta{font-size:11px;color:var(--text-muted)}
+
+    /* Features */
+    .features{background:white}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+    .feature-card{background:var(--bg-warm);border-radius:var(--radius-lg);padding:36px;border:1px solid var(--border-light);transition:all var(--transition-normal);position:relative}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(15,118,110,0.15)}
+    .feature-icon{width:72px;height:72px;background:linear-gradient(135deg,rgba(15,118,110,0.08),rgba(20,184,166,0.08));border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:24px}
+    .feature-card h3{font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+    .feature-card p{font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:20px}
+    .feature-detail{font-size:13px;color:var(--text-muted);border-top:1px solid var(--border-light);padding-top:16px;line-height:1.7}
+    .feature-detail strong{color:var(--primary)}
+
+    /* Journey */
+    .journey{background:var(--bg-light)}
+    .journey-steps{display:flex;justify-content:space-between;position:relative;margin-top:64px;gap:8px}
+    .journey-steps::before{content:'';position:absolute;top:40px;left:80px;right:80px;height:3px;background:linear-gradient(90deg,var(--primary-light),var(--accent));border-radius:2px}
+    .journey-step{flex:1;text-align:center;position:relative;padding:0 8px}
+    .step-number{width:80px;height:80px;background:white;border:3px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--primary);margin:0 auto 24px;position:relative;z-index:10;box-shadow:var(--shadow-md);transition:all var(--transition-fast)}
+    .journey-step:hover .step-number{background:var(--primary);color:white;transform:scale(1.05)}
+    .step-time{display:inline-block;background:rgba(15,118,110,0.08);color:var(--primary);padding:4px 14px;border-radius:var(--radius-full);font-size:12px;font-weight:500;margin-bottom:14px}
+    .step-title{font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+    .step-desc{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+    /* Base Knowledge */
+    .base-knowledge{background:white}
+    .bk-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    .bk-left h3{font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:16px}
+    .bk-left p{font-size:15px;color:var(--text-muted);margin-bottom:32px;line-height:1.7}
+    .bk-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .bk-item{background:var(--bg-light);border-radius:var(--radius-md);padding:20px;border:1px solid var(--border-light);transition:all var(--transition-fast)}
+    .bk-item:hover{border-color:rgba(15,118,110,0.2);transform:translateY(-2px)}
+    .bk-item-icon{font-size:24px;margin-bottom:10px}
+    .bk-item-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+    .bk-item-desc{font-size:12px;color:var(--text-muted)}
+    .bk-right{position:relative}
+    .bk-flow{background:linear-gradient(135deg,rgba(15,118,110,0.04),rgba(249,115,22,0.04));border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);text-align:center}
+    .bk-flow-title{font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+    .bk-flow-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px}
+    .bk-cycle{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:28px}
+    .bk-cycle-item{background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 20px;min-width:120px;transition:all var(--transition-fast)}
+    .bk-cycle-item:hover{border-color:var(--primary);transform:translateY(-2px)}
+    .bk-cycle-item.arrow{border:none;background:transparent;padding:0;min-width:0;font-size:20px;color:var(--text-muted);display:flex;align-items:center}
+    .bk-cycle-icon{font-size:20px;margin-bottom:6px}
+    .bk-cycle-label{font-size:13px;font-weight:600;color:var(--text-dark)}
+    .bk-cycle-desc{font-size:11px;color:var(--text-muted);margin-top:2px}
+    .bk-loop{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--accent);font-weight:600}
+    .bk-loop svg{width:20px;height:20px}
+    .bk-value{background:rgba(15,118,110,0.06);border-radius:var(--radius-md);padding:16px 20px;font-size:14px;color:var(--primary);line-height:1.6;font-weight:500;text-align:left}
+
+    /* Pricing */
+    .pricing{background:linear-gradient(180deg,var(--bg-light) 0%,var(--bg-warm) 100%)}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1060px;margin:0 auto;align-items:center}
+    .pricing-card{background:white;border-radius:var(--radius-lg);padding:40px 32px;box-shadow:var(--shadow-sm);border:1px solid var(--border);text-align:center;transition:all var(--transition-normal)}
+    .pricing-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .pricing-card.featured{border:2px solid var(--primary);position:relative;padding:48px 32px;box-shadow:var(--shadow-lg)}
+    .pricing-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:white;padding:6px 20px;border-radius:var(--radius-full);font-size:12px;font-weight:600;white-space:nowrap}
+    .pricing-name{font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+    .pricing-price{margin-bottom:28px}
+    .pricing-amount{font-size:48px;font-weight:900;color:var(--primary)}
+    .pricing-period{font-size:14px;color:var(--text-light)}
+    .pricing-features{list-style:none;margin-bottom:32px;text-align:left}
+    .pricing-features li{padding:12px 0;border-bottom:1px solid var(--border-light);font-size:14px;color:var(--text-muted);display:flex;align-items:center;gap:12px}
+    .pricing-features li::before{content:'✓';color:var(--success);font-weight:700;font-size:14px}
+    .pricing-features li.disabled{color:var(--text-light);text-decoration:line-through}
+    .pricing-features li.disabled::before{content:'–';color:var(--text-light)}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,#1C1917 0%,#292524 100%);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center top,rgba(15,118,110,0.2) 0%,transparent 70%);pointer-events:none}
+    .cta-content{position:relative;z-index:10;max-width:600px;margin:0 auto}
+    .cta h2{font-size:clamp(28px,4vw,40px);font-weight:700;color:white;margin-bottom:16px}
+    .cta p{font-size:18px;color:rgba(255,255,255,0.7);margin-bottom:40px}
+
+    /* Footer */
+    .footer{background:#1C1917;color:rgba(255,255,255,0.7);padding:64px 48px 32px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto 48px}
+    .footer-brand{max-width:280px}
+    .footer-logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:white;margin-bottom:16px}
+    .footer-logo svg{width:28px;height:28px}
+    .footer-logo svg path{stroke:#fff}
+    .footer-logo svg circle{fill:#fff}
+    .footer-brand p{font-size:14px;line-height:1.7;color:rgba(255,255,255,0.6)}
+    .footer-column h4{font-size:14px;font-weight:600;color:white;margin-bottom:20px}
+    .footer-column ul{list-style:none}
+    .footer-column li{margin-bottom:12px}
+    .footer-column a{font-size:14px;transition:color var(--transition-fast)}
+    .footer-column a:hover{color:white}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:32px;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    .footer-copyright{font-size:13px;color:rgba(255,255,255,0.5)}
+    .footer-social{display:flex;gap:16px}
+    .footer-social a{width:36px;height:36px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition-fast)}
+    .footer-social a:hover{background:var(--primary);transform:translateY(-2px)}
+
+    /* Animations */
+    .animate-on-scroll{opacity:0;transform:translateY(20px);transition:all 0.6s ease}
+    .animate-on-scroll.visible{opacity:1;transform:translateY(0)}
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .industry-grid{grid-template-columns:repeat(2,1fr)}
+      .features-grid{grid-template-columns:repeat(2,1fr)}
+      .pricing-grid{grid-template-columns:repeat(2,1fr);max-width:720px}
+      .pricing-card.featured{transform:none}
+      .journey-steps{flex-wrap:wrap;gap:48px}
+      .journey-steps::before{display:none}
+      .journey-step{flex:0 0 28%}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+      .bk-layout{grid-template-columns:1fr}
+    }
+    @media (max-width:768px){
+      .nav{padding:16px 24px}
+      .nav-links{display:none}
+      .hero-content{padding:0 20px}
+      .hero-actions{flex-direction:column}
+      .stats-bar{padding:24px;margin-top:40px}
+      .stats-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+      .stat-item{border-right:none;padding:0}
+      .stat-item:nth-child(1),.stat-item:nth-child(2){border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:16px;margin-bottom:16px}
+      .section{padding:60px 24px}
+      .industry-grid,.features-grid,.pricing-grid{grid-template-columns:1fr}
+      .journey-step{flex:0 0 100%}
+      .bk-items{grid-template-columns:1fr}
+      .ms-sites{flex-direction:column;max-width:100%}
+      .footer-grid{grid-template-columns:1fr;gap:32px}
+      .footer-bottom{flex-direction:column;gap:20px;text-align:center}
     }
   </style>
 </head>
@@ -1129,16 +282,16 @@
   <nav class="nav" id="navbar">
     <a href="#" class="nav-logo">
       <svg viewBox="0 0 32 32" fill="none">
-        <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="16" cy="16" r="3" fill="white"/>
+        <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="3" fill="currentColor"/>
       </svg>
       KnosAI · 企业知识绿洲
     </a>
     <div class="nav-links">
       <a href="#features" class="nav-link">功能介绍</a>
+      <a href="#industry" class="nav-link">行业方案</a>
       <a href="#pricing" class="nav-link">定价方案</a>
-      <a href="#" class="nav-link">行业模板</a>
-      <a href="#" class="nav-link">关于我们</a>
+      <a href="#footer" class="nav-link">关于我们</a>
     </div>
     <div class="nav-actions">
       <a href="/login" class="btn btn-ghost">登录</a>
@@ -1146,7 +299,7 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-bg">
       <div class="hero-grid"></div>
@@ -1154,137 +307,313 @@
       <div class="hero-scanline"></div>
     </div>
     <div class="hero-overlay"></div>
-    
     <div class="hero-content">
       <div class="hero-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         环保行业首选知识管理工具
       </div>
-      
       <h1>让企业知识沉淀成<br>可复用的<span class="highlight">资产</span></h1>
-      <p class="hero-subtitle">
-        KnosAI · 企业知识绿洲<br>
-        通过引导式问答 + 文档自动整合，构建企业专属的行业知识库
-      </p>
-      
+      <p class="hero-subtitle">KnosAI · 企业知识绿洲 — 通过引导式问答 + 文档自动整合，构建企业专属的行业知识库。员工可查、客户可问、AI 智能应答。</p>
       <div class="hero-actions">
-        <a href="pages/register.html" class="btn btn-primary btn-xl">免费开始使用</a>
-        <a href="#features" class="btn btn-secondary btn-xl">了解更多</a>
+        <a href="/register" class="btn btn-primary btn-xl">免费开始使用</a>
+        <a href="#features" class="btn btn-secondary btn-xl">查看演示</a>
       </div>
-      
       <div class="hero-tags">
-        <span class="hero-tag"><span>🧠</span> 隐性知识提取</span>
-        <span class="hero-tag"><span>🏭</span> 环保行业首发</span>
+        <span class="hero-tag"><span>🏭</span> 多行业适配</span>
         <span class="hero-tag"><span>💬</span> 引导式问答</span>
-        <span class="hero-tag"><span>🤖</span> AI 智能应用</span>
+        <span class="hero-tag"><span>📄</span> 文档智能整合</span>
+        <span class="hero-tag"><span>🤖</span> AI 智能问答</span>
       </div>
-
-      <!-- Stats Bar -->
       <div class="stats-bar animate-on-scroll">
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-value">2,847</div>
-            <div class="stat-label">已创建知识库</div>
+            <div class="stat-value">多行业</div>
+            <div class="stat-label">已为环保/制造/医疗等行业服务</div>
           </div>
           <div class="stat-item">
-            <div class="stat-value">50,000+</div>
-            <div class="stat-label">AI 问答次数</div>
+            <div class="stat-value">20-30题</div>
+            <div class="stat-label">引导式问答挖掘隐性经验</div>
           </div>
           <div class="stat-item">
-            <div class="stat-value">98%</div>
-            <div class="stat-label">用户满意度</div>
+            <div class="stat-value">Word/PDF</div>
+            <div class="stat-label">文档自动解析整合</div>
           </div>
           <div class="stat-item">
             <div class="stat-value">5分钟</div>
-            <div class="stat-label">完成首次提取</div>
+            <div class="stat-label">完成首次知识库搭建</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- Industry Scenarios -->
+  <section class="section industry-section" id="industry">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">行业场景</span>
+        <h2 class="section-title">先做环保行业，后续持续扩展</h2>
+        <p class="section-desc">每个行业都有专属的知识库底座，开箱即用，无需从零开始</p>
+      </div>
+      <div class="industry-grid">
+        <div class="industry-card featured animate-on-scroll">
+          <div class="industry-card-icon">🏭</div>
+          <h3>污水处理站运维</h3>
+          <p>适用：医院、小区、工业园污水站</p>
+          <div class="industry-card-tags">
+            <span class="industry-tag">AO/MBR/SBR工艺</span>
+            <span class="industry-tag">设备操作</span>
+            <span class="industry-tag">异常处理</span>
+            <span class="industry-tag">应急预案</span>
+            <span class="industry-tag">GB18466标准</span>
+          </div>
+          <a href="#" class="industry-card-link">查看完整内容 →</a>
+        </div>
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-card-icon">🏗️</div>
+          <h3>废气处理设备运维</h3>
+          <p>适用：工厂、车间废气处理站</p>
+          <div class="industry-card-tags">
+            <span class="industry-tag">除尘/脱硫/脱硝</span>
+            <span class="industry-tag">设备维护</span>
+            <span class="industry-tag">排放达标</span>
+          </div>
+          <a href="#" class="industry-card-link">即将上线 →</a>
+        </div>
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-card-icon">⚙️</div>
+          <h3>工业设备维护</h3>
+          <p>适用：制造业工厂设备管理</p>
+          <div class="industry-card-tags">
+            <span class="industry-tag">设备点检</span>
+            <span class="industry-tag">故障诊断</span>
+            <span class="industry-tag">预防性维护</span>
+          </div>
+          <a href="#" class="industry-card-link">即将上线 →</a>
+        </div>
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-card-icon">🏥</div>
+          <h3>医疗机构后勤</h3>
+          <p>适用：医院后勤运维管理</p>
+          <div class="industry-card-tags">
+            <span class="industry-tag">设备管理</span>
+            <span class="industry-tag">后勤 SOP</span>
+            <span class="industry-tag">应急流程</span>
+          </div>
+          <a href="#" class="industry-card-link">即将上线 →</a>
+        </div>
+      </div>
+      <div class="industry-more">
+        <span>更多行业即将上线：制造、餐饮、教育...</span>
+      </div>
+
+      <!-- Multi-site Architecture Visualization -->
+      <div class="multi-site-viz animate-on-scroll">
+        <div class="multi-site-title">多站点架构 — <span>企业知识库 = 公司层 + N 个站点层</span></div>
+        <div class="multi-site-diagram">
+          <div class="ms-company">
+            <div class="ms-company-name">运维公司</div>
+            <div class="ms-company-desc">公司基本信息 + 站点清单</div>
+          </div>
+          <div class="ms-arrow">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#78716C" stroke-width="2"><path d="M8 20h20M24 14l6 6-6 6"/></svg>
+          </div>
+          <div class="ms-sites">
+            <div class="ms-site">
+              <div class="ms-site-name">站点 A</div>
+              <div class="ms-site-meta">医院 · AO工艺</div>
+            </div>
+            <div class="ms-site">
+              <div class="ms-site-name">站点 B</div>
+              <div class="ms-site-meta">小区 · MBR工艺</div>
+            </div>
+            <div class="ms-site">
+              <div class="ms-site-name">站点 C</div>
+              <div class="ms-site-meta">工业园 · SBR工艺</div>
+            </div>
+            <div class="ms-site">
+              <div class="ms-site-name">站点 D...</div>
+              <div class="ms-site-meta">独立知识模块</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--text-muted)">每个站点独立知识模块 → AI 问答支持按站点检索</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Core Features -->
   <section class="section features" id="features">
     <div class="container">
       <div class="section-header animate-on-scroll">
         <span class="section-label">核心功能</span>
-        <h2 class="section-title">让知识管理变得简单高效</h2>
+        <h2 class="section-title">三条路径，构建完整企业知识库</h2>
         <p class="section-desc">无需复杂培训，打开就问。让每一位员工都能参与知识库的建设和使用。</p>
       </div>
-      
       <div class="features-grid">
         <div class="feature-card animate-on-scroll">
           <div class="feature-icon">💬</div>
           <h3>引导式问答</h3>
-          <p>无需准备任何文档，打开就问。行业模板自动引导，20-30个问题即可生成完整知识库。</p>
+          <p>把老师傅脑子里的经验挖出来。目标导向，动态调整问题，不设固定题数上限。</p>
+          <div class="feature-detail">
+            <strong>⏱ 15-20 分钟</strong> 即可生成完整知识库章节<br>
+            <strong>🎯 目标导向</strong> — 系统判断"还需要什么"，动态选下一题<br>
+            <strong>🏭 多站点支持</strong> — 逐站引导，每个站点独立知识模块
+          </div>
         </div>
-        
         <div class="feature-card animate-on-scroll">
-          <div class="feature-icon">📚</div>
-          <h3>结构化知识库</h3>
-          <p>一问一答生成操作手册、培训资料、FAQ。内容自动分类整理，形成清晰的章节结构。</p>
+          <div class="feature-icon">📄</div>
+          <h3>文档智能整合</h3>
+          <p>已有文档一键上传，支持多种格式，自动解析、分类、合并入企业知识库。</p>
+          <div class="feature-detail">
+            <strong>📑 支持格式</strong> — Word / PDF / Excel / Markdown<br>
+            <strong>🔍 智能分类</strong> — 自动识别章节，归类到对应知识模块<br>
+            <strong>🤝 无缝合并</strong> — 与引导问答内容整合为统一知识库
+          </div>
         </div>
-        
         <div class="feature-card animate-on-scroll">
           <div class="feature-icon">🤖</div>
           <h3>AI 智能问答</h3>
-          <p>基于知识库回答员工和客户问题。7×24小时在线，快速响应，降低培训成本。</p>
+          <p>7×24 小时专属知识管家，基于企业知识库回答员工和客户提问。</p>
+          <div class="feature-detail">
+            <strong>🏢 按站点检索</strong> — 支持公司层 + 各站点独立问答<br>
+            <strong>📚 底座扎实</strong> — 行业基础库 + 企业私有知识 + 文档<br>
+            <strong>🔒 数据隔离</strong> — 企业私有数据，不泄露
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Journey Section -->
-  <section class="section journey">
+  <!-- User Journey v2.2 -->
+  <section class="section journey" id="journey">
     <div class="container">
       <div class="section-header animate-on-scroll">
         <span class="section-label">用户旅程</span>
-        <h2 class="section-title">只需五步，完成知识提取</h2>
-        <p class="section-desc">简单直观的流程设计，让每一位员工都能轻松上手</p>
+        <h2 class="section-title">五步，构建企业专属知识库</h2>
+        <p class="section-desc">简单直观的流程设计，支持多站点企业，每个站点独立获取知识</p>
       </div>
-      
       <div class="journey-steps">
         <div class="journey-step animate-on-scroll">
           <div class="step-number">1</div>
           <span class="step-time">30秒</span>
-          <div class="step-title">注册账号</div>
-          <div class="step-desc">邮箱注册，无需复杂验证</div>
+          <div class="step-title">选择行业</div>
+          <div class="step-desc">选择你的行业，自动加载行业基础库</div>
         </div>
-        
         <div class="journey-step animate-on-scroll">
           <div class="step-number">2</div>
           <span class="step-time">1分钟</span>
-          <div class="step-title">选择模板</div>
-          <div class="step-desc">环保/制造等行业模板</div>
+          <div class="step-title">填写公司信息</div>
+          <div class="step-desc">确认托管站点数量，填写公司基本信息</div>
         </div>
-        
         <div class="journey-step animate-on-scroll">
           <div class="step-number">3</div>
-          <span class="step-time">10分钟</span>
-          <div class="step-title">引导问答</div>
-          <div class="step-desc">20-30个问题逐步回答</div>
+          <span class="step-time">15-20分钟</span>
+          <div class="step-title">逐站引导问答</div>
+          <div class="step-desc">每个站点独立获取，目标达成即结束</div>
         </div>
-        
         <div class="journey-step animate-on-scroll">
           <div class="step-number">4</div>
-          <span class="step-time">即时</span>
-          <div class="step-title">生成知识库</div>
-          <div class="step-desc">自动整理成结构化章节</div>
+          <span class="step-time">不限</span>
+          <div class="step-title">上传文档</div>
+          <div class="step-desc">可选，支持 PDF/Word/Excel/MD 批量上传</div>
         </div>
-        
         <div class="journey-step animate-on-scroll">
           <div class="step-number">5</div>
-          <span class="step-time">随时</span>
-          <div class="step-title">启用 AI</div>
-          <div class="step-desc">智能客服即刻上线</div>
+          <span class="step-time">即时</span>
+          <div class="step-title">启用 AI 问答</div>
+          <div class="step-desc">员工/客户可随时查询，支持按站点检索</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
+  <!-- Base Knowledge Module -->
+  <section class="section base-knowledge" id="base-knowledge">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">行业基础库</span>
+        <h2 class="section-title">开箱即用的行业知识底座</h2>
+        <p class="section-desc">每个行业我们都预置了完整的行业基础知识库 — 法规标准、工艺流程、设备说明、常见异常、应急预案，您无需从零开始。</p>
+      </div>
+      <div class="bk-layout">
+        <div class="bk-left animate-on-scroll">
+          <h3>环保-污水处理站运维 预置内容</h3>
+          <p>平台已内置以下知识模块，新企业直接受益，无需从零录入：</p>
+          <div class="bk-items">
+            <div class="bk-item">
+              <div class="bk-item-icon">📋</div>
+              <div class="bk-item-title">法规标准</div>
+              <div class="bk-item-desc">GB18466、GB18918、GB8978 等</div>
+            </div>
+            <div class="bk-item">
+              <div class="bk-item-icon">⚙️</div>
+              <div class="bk-item-title">工艺流程</div>
+              <div class="bk-item-desc">AO / MBR / SBR / MBBR</div>
+            </div>
+            <div class="bk-item">
+              <div class="bk-item-icon">🔧</div>
+              <div class="bk-item-title">设备操作</div>
+              <div class="bk-item-desc">格栅/风机/水泵/加药装置</div>
+            </div>
+            <div class="bk-item">
+              <div class="bk-item-icon">⚠️</div>
+              <div class="bk-item-title">常见异常</div>
+              <div class="bk-item-desc">泡沫/污泥膨胀/出水超标</div>
+            </div>
+            <div class="bk-item">
+              <div class="bk-item-icon">🚨</div>
+              <div class="bk-item-title">应急预案</div>
+              <div class="bk-item-desc">停电/设备故障/达标风险</div>
+            </div>
+            <div class="bk-item">
+              <div class="bk-item-icon">📖</div>
+              <div class="bk-item-title">行业术语表</div>
+              <div class="bk-item-desc">DO/SV30/回流比等</div>
+            </div>
+          </div>
+        </div>
+        <div class="bk-right animate-on-scroll">
+          <div class="bk-flow">
+            <div class="bk-flow-title">越用越聪明的正循环</div>
+            <div class="bk-flow-sub">行业基础库不是静态的 — 企业越多，基础库越完善</div>
+            <div class="bk-cycle">
+              <div class="bk-cycle-item">
+                <div class="bk-cycle-icon">💬</div>
+                <div class="bk-cycle-label">企业使用</div>
+                <div class="bk-cycle-desc">引导问答 + 文档</div>
+              </div>
+              <div class="bk-cycle-item arrow">→</div>
+              <div class="bk-cycle-item">
+                <div class="bk-cycle-icon">🔒</div>
+                <div class="bk-cycle-label">脱敏聚合</div>
+                <div class="bk-cycle-desc">去标识化提炼</div>
+              </div>
+              <div class="bk-cycle-item arrow">→</div>
+              <div class="bk-cycle-item">
+                <div class="bk-cycle-icon">🌱</div>
+                <div class="bk-cycle-label">基础库更新</div>
+                <div class="bk-cycle-desc">最佳实践沉淀</div>
+              </div>
+              <div class="bk-cycle-item arrow">→</div>
+              <div class="bk-cycle-item">
+                <div class="bk-cycle-icon">✨</div>
+                <div class="bk-cycle-label">新企业受益</div>
+                <div class="bk-cycle-desc">更强开箱即用</div>
+              </div>
+            </div>
+            <div class="bk-loop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-9-9"/><path d="M21 3v9h-9"/></svg>
+              循环持续，数据越多越智能
+            </div>
+            <div class="bk-value">您贡献的经验，会让整个行业知识库更完善 —— 而完善的行业基础库，又会反过来服务您的企业。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
   <section class="section pricing" id="pricing">
     <div class="container">
       <div class="section-header animate-on-scroll">
@@ -1292,7 +621,6 @@
         <h2 class="section-title">简单透明的定价</h2>
         <p class="section-desc">根据团队规模选择合适方案，从免费开始，逐步扩展</p>
       </div>
-      
       <div class="pricing-grid">
         <div class="pricing-card animate-on-scroll">
           <div class="pricing-name">免费版</div>
@@ -1303,13 +631,12 @@
           <ul class="pricing-features">
             <li>1 个知识库</li>
             <li>基础搜索功能</li>
+            <li>引导式问答</li>
             <li class="disabled">AI 客服功能</li>
-            <li class="disabled">导出功能</li>
-            <li class="disabled">团队协作</li>
+            <li class="disabled">文档上传</li>
           </ul>
           <a href="/register" class="btn btn-secondary btn-lg">免费开始</a>
         </div>
-        
         <div class="pricing-card featured animate-on-scroll">
           <span class="pricing-badge">最受欢迎</span>
           <div class="pricing-name">专业版</div>
@@ -1319,14 +646,13 @@
           </div>
           <ul class="pricing-features">
             <li>无限知识库</li>
-            <li>高级搜索 + AI 客服</li>
+            <li>文档上传 + AI 客服</li>
+            <li>多站点支持</li>
             <li>PDF/Word 导出</li>
             <li>优先级支持</li>
-            <li>5 个团队成员</li>
           </ul>
           <a href="/register?plan=pro" class="btn btn-primary btn-lg">立即升级</a>
         </div>
-        
         <div class="pricing-card animate-on-scroll">
           <div class="pricing-name">企业版</div>
           <div class="pricing-price">
@@ -1336,7 +662,7 @@
           <ul class="pricing-features">
             <li>专业版全部功能</li>
             <li>无限团队成员</li>
-            <li>自定义模板</li>
+            <li>自定义行业包</li>
             <li>专属客服经理</li>
             <li>数据导出 API</li>
           </ul>
@@ -1346,49 +672,47 @@
     </div>
   </section>
 
-  <!-- CTA Section -->
+  <!-- CTA -->
   <section class="cta">
     <div class="cta-content animate-on-scroll">
       <h2>准备好开始了吗？</h2>
-      <p>无需信用卡，5 分钟完成首次知识提取</p>
+      <p>无需信用卡，5 分钟完成首次知识库搭建</p>
       <a href="/register" class="btn btn-white btn-xl">免费创建知识库</a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" id="footer">
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
           <svg viewBox="0 0 32 32" fill="none">
-            <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="16" cy="16" r="3" fill="white"/>
+            <path d="M4 16C4 16 8 8 12 12C16 16 16 8 20 12C24 16 28 16 28 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3" fill="currentColor"/>
           </svg>
           KnosAI · 企业知识绿洲
         </div>
         <p>帮助小企业将团队隐性知识转化为可复用的知识资产。先做环保行业（污水处理站运维），让经验传承更简单。</p>
+        <p style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.4)">© 2026 knosAI.ltd. All rights reserved.</p>
       </div>
-      
       <div class="footer-column">
         <h4>产品</h4>
         <ul>
-          <li><a href="#">功能介绍</a></li>
-          <li><a href="#">定价方案</a></li>
-          <li><a href="#">行业模板</a></li>
+          <li><a href="#features">功能介绍</a></li>
+          <li><a href="#pricing">定价方案</a></li>
+          <li><a href="#industry">行业模板</a></li>
           <li><a href="#">更新日志</a></li>
         </ul>
       </div>
-      
       <div class="footer-column">
         <h4>公司</h4>
         <ul>
-          <li><a href="#">关于我们</a></li>
+          <li><a href="#footer">关于我们</a></li>
           <li><a href="#">联系方式</a></li>
           <li><a href="#">加入团队</a></li>
           <li><a href="#">博客</a></li>
         </ul>
       </div>
-      
       <div class="footer-column">
         <h4>支持</h4>
         <ul>
@@ -1399,9 +723,8 @@
         </ul>
       </div>
     </div>
-    
     <div class="footer-bottom">
-      <span class="footer-copyright">© 2026 KnosAI · 企业知识绿洲. All rights reserved.</span>
+      <span class="footer-copyright">© 2026 KnosAI · 企业知识绿洲 · knosAI.ltd</span>
       <div class="footer-social">
         <a href="#" title="微信">💬</a>
         <a href="#" title="微信公众号">📢</a>
@@ -1427,20 +750,13 @@
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
 
     // Scroll animation observer
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1448,10 +764,7 @@
         }
       });
     }, observerOptions);
-
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
